@@ -65,7 +65,6 @@ export default function TiltCard({
       {/* Glow overlay */}
       <motion.div
         aria-hidden
-        style={{ opacity: glowOpacity }}
         className="absolute inset-0 rounded-[inherit] pointer-events-none"
         style={{
           opacity: glowOpacity,

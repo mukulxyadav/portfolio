@@ -303,9 +303,9 @@ export default function Scene3DBackground() {
       // 0% tint at top → 50% tint at 600px scroll
       const tint = Math.min(y / 1200, 0.5);
 
-      blurRef.current.style.backdropFilter  = `blur(${blur}px)`;
-      blurRef.current.style.webkitBackdropFilter = `blur(${blur}px)`;
-      blurRef.current.style.background      = `rgba(5,5,5,${tint})`;
+      blurRef.current.style.backdropFilter = `blur(${blur}px)`;
+      blurRef.current.style.setProperty("-webkit-backdrop-filter", `blur(${blur}px)`);
+      blurRef.current.style.background = `rgba(5,5,5,${tint})`;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
