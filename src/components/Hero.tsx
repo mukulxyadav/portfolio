@@ -109,6 +109,6 @@ export default function Hero() {
         <span className="text-[10px] uppercase tracking-widest text-neutral-600 font-bold">Scroll</span>
         <div className="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent" />
       </motion.div>
-    </section>
+    </SectionWrapper>
   );
 }

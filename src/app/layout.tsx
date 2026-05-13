@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   description: "A world-class modern developer portfolio showcasing backend engineering and high-end design.",
 };
 
-import GradientMesh from "@/components/GradientMesh";
-import CustomCursor from "@/components/CustomCursor";
+import GradientMesh from "../components/GradientMesh";
+import CustomCursor from "../components/CustomCursor";
 
 export default function RootLayout({
   children,

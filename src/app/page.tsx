@@ -1,8 +1,8 @@
-import Hero from "@/components/Hero";
-import Navbar from "@/components/Navbar";
-import BentoGrid from "@/components/BentoGrid";
-import SmoothScroll from "@/components/SmoothScroll";
-import NoiseOverlay from "@/components/NoiseOverlay";
+import Hero from "../components/Hero";
+import Navbar from "../components/Navbar";
+import BentoGrid from "../components/BentoGrid";
+import SmoothScroll from "../components/SmoothScroll";
+import NoiseOverlay from "../components/NoiseOverlay";
 
 export default function Home() {
   return (
