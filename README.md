@@ -1,109 +1,68 @@
-# 🚀 Mukul Kumar | Premium Interactive 3D Portfolio
+# 🚀 Mukul Kumar | Premium Interactive Portfolio
 
-A top 1% developer portfolio featuring a hyper-realistic interactive 3D avatar with independent mouse-tracking eyes, AI chatbot, and premium glassmorphic UI.
+A world-class developer portfolio featuring an interactive SVG avatar with mouse-tracking eyes, automated live coding statistics, an AI chatbot, and a premium glassmorphic UI.
 
-## ✨ High-Value 3D Avatar Features
-- **Mouse Tracking Eyes**: Eyes follow the cursor position smoothly and naturally.
-- **Head Movement**: Subtle head rotation based on cursor position for a lifelike feel.
-- **Idle Animations**: Natural random blinking and subtle breathing motion (chest/shoulders up and down).
-- **Optimized Performance**: Lightweight 2.5D WebGL architecture for instant loading and 60fps performance.
+## ✨ Core Features
 
-## 📂 Folder Structure
+- **Interactive SVG Avatar**: Custom-built avatar with mouse-tracking eyes, dynamic head movement, and realistic idle blink animations.
+- **Automated Live Statistics**: Real-time data fetching from **LeetCode** (solved problems & global rank) and **GitHub** (public repositories).
+- **AI Chatbot Assistant**: An intelligent chatbot trained on Mukul's professional background to answer recruiter questions instantly.
+- **3D Hover Interactions**: Interactive project and skill cards with advanced 3D tilt-on-hover effects using Framer Motion.
+- **Cinematic Design**: High-end glassmorphism aesthetic with ambient glow orbs, noise overlays, and custom cursor physics.
+- **Buttery-Smooth Animations**: Integrated with GSAP and Framer Motion for high-performance, scroll-triggered visual storytelling.
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js (App Router)
+- **Animations**: Framer Motion, GSAP
+- **3D/Visuals**: React Three Fiber (Background Effects)
+- **Styling**: Tailwind CSS & Vanilla CSS (Glassmorphism)
+- **Icons**: Lucide React, React Icons
+
+## 📂 Project Structure
 
 ```
-├── public/                 # Static assets (images, 3D models)
+├── public/                 # Static assets (images, icons)
 ├── src/                    # Source code
-│   ├── components/         # React Components
-│   │   ├── Avatar3D.jsx    # Custom Stylized 3D Avatar with React Three Fiber
-│   │   ├── Hero.jsx        # Full-screen immersive landing page
-│   │   ├── About.jsx       # Scroll-animated storytelling
-│   │   ├── Projects.jsx    # 3D tilting interactive project cards
-│   │   ├── Skills.jsx      # Floating organic skill tags
-│   │   ├── Chatbot.jsx     # AI assistant overlay
-│   │   ├── MagneticButton.jsx # Custom cursor physics buttons
+│   ├── app/                # Next.js App Router (Layouts & Pages)
+│   ├── components/         # Modular React Components
+│   │   ├── Avatar.jsx      # Interactive SVG Avatar logic
+│   │   ├── CodingProfiles.jsx # Automated API fetching logic
+│   │   ├── Chatbot.jsx     # AI assistant implementation
+│   │   ├── Projects.jsx    # 3D project showcase
 │   │   └── ...
 │   ├── data/
-│   │   └── resume.js       # Centralized data source (easily editable)
-│   ├── App.jsx             # Main application layout and global state
-│   ├── index.css           # Global styles, Tailwind, and Glassmorphism utilities
-│   └── main.jsx            # React entry point
-├── package.json            # Dependencies
+│   │   └── resume.js       # Centralized professional data source
+│   └── ...
+├── package.json            # Dependencies & Scripts
 └── README.md               # You are here
 ```
 
----
+## 🚀 Getting Started
 
-## 🛠️ Step-by-Step Setup Guide
-
-To run this masterpiece locally, follow these steps:
-
-1. **Clone the repository:**
+1. **Clone & Install**:
    ```bash
-   git clone <your-repo-url>
-   cd <your-repo-directory>
-   ```
-
-2. **Install dependencies:**
-   Make sure you have Node.js installed, then run:
-   ```bash
+   git clone https://github.com/mukulxyadav/portfolio.git
+   cd portfolio
    npm install
    ```
 
-3. **Start the development server:**
+2. **Run Locally**:
    ```bash
    npm run dev
    ```
 
-4. **View locally:**
-   Open your browser to `http://localhost:5173` (or the port shown in your terminal).
-
----
-
-## 🌐 Deployment Instructions
-
-This project is fully optimized for **Vercel** or **Netlify**.
-
-### Deploying to Vercel (Recommended):
-1. Create a free account at [vercel.com](https://vercel.com).
-2. Install the Vercel CLI: `npm i -g vercel`.
-3. In your project directory, simply run:
+3. **Build for Production**:
    ```bash
-   vercel
-   ```
-4. Follow the prompts (use default settings: Vite build commands will be automatically detected).
-
-### Deploying to Netlify:
-1. Push your code to GitHub.
-2. Go to [Netlify](https://netlify.com) and click **"Add new site"** -> **"Import an existing project"**.
-3. Select your GitHub repository.
-4. **Build command:** `npm run build`
-5. **Publish directory:** `dist`
-6. Click **Deploy Site**.
-
----
-
-## 🧑‍🎤 How to Replace the 3D Avatar (Custom Photo)
-
-Currently, the portfolio uses a highly-optimized, programmatic Stylized Low-Poly head (`Avatar3D.jsx`). To replace this with a 3D scan of your actual face:
-
-1. Go to a free avatar generator like **[Ready Player Me](https://readyplayer.me/)**.
-2. Upload your photo and generate your avatar.
-3. Export the avatar as a `.glb` file.
-4. Place the `.glb` file in the `public/` folder (e.g., `public/mukul-avatar.glb`).
-5. In `src/components/Avatar3D.jsx`, replace the `<StylizedSharpAvatar />` logic with:
-   ```jsx
-   import { useGLTF } from '@react-three/drei';
-   
-   function MyCustomAvatar() {
-     const { scene } = useGLTF('/mukul-avatar.glb');
-     return <primitive object={scene} scale={1.5} position={[0, -1, 0]} />;
-   }
+   npm run build
    ```
 
 ---
 
-## ⚡ Performance Optimization Tips
+## 🌐 Deployment
 
-1. **3D Rendering (`Avatar3D.jsx`)**: The canvas is currently limited to `fov: 45` and uses optimized primitives. If you import a heavy `.glb`, use the [gltf-pipeline](https://github.com/CesiumGS/gltf-pipeline) tool or Draco compression to compress it before adding it to `public/`.
-2. **Scroll Animations**: Framer Motion uses hardware acceleration (`transform` / `opacity`). Avoid animating `width`, `height`, or `top`/`left` properties to prevent costly browser reflows.
-3. **Interactive Mode Toggle**: The `interactiveMode` state in `App.jsx` dynamically disables `useFrame` tracking loops in the 3D components if a user is on a low-end device or prefers less motion.
+This project is optimized for deployment on **Vercel**. Simply push your changes to GitHub, and Vercel will handle the rest.
+
+---
+
+Designed and Developed by [Mukul Kumar](https://github.com/mukulxyadav).
