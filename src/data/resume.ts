@@ -1,4 +1,58 @@
-export const resumeData = {
+export interface Education {
+  institution: string;
+  degree: string;
+  period: string;
+  cgpa: string;
+  courses: string[];
+}
+
+export interface SkillCategory {
+  [key: string]: string[];
+}
+
+export interface Project {
+  name: string;
+  subtitle: string;
+  github: string;
+  description: string;
+  bullets: string[];
+  stack: string[];
+  color: string;
+}
+
+export interface Certification {
+  title: string;
+  issuer: string;
+  icon: string;
+  color: string;
+  period?: string;
+  description?: string;
+}
+
+export interface LeetCodeStats {
+  solved: number;
+  topics: string[];
+}
+
+export interface ResumeData {
+  name: string;
+  title: string;
+  email: string;
+  phone: string;
+  github: string;
+  leetcode: string;
+  linkedin: string;
+  twitter: string;
+  instagram: string;
+  summary: string;
+  education: Education[];
+  skills: SkillCategory;
+  projects: Project[];
+  certifications: Certification[];
+  leetcodeStats: LeetCodeStats;
+}
+
+export const resumeData: ResumeData = {
   name: 'Mukul Kumar',
   title: 'Computer Science Student | Backend Developer | Problem Solver',
   email: 'mukulxyadav@gmail.com',
