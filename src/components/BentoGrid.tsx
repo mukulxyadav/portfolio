@@ -1,13 +1,40 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { motion } from "framer-motion";
 import { FiGithub, FiExternalLink, FiCode, FiUser, FiAward } from "react-icons/fi";
 import { resumeData } from "../data/resume";
 import SpotlightCard from "./SpotlightCard";
 import SectionWrapper from "./SectionWrapper";
-import { motion } from "framer-motion";
 
 export default function BentoGrid() {
+  const [stats, setStats] = useState({
+    leetcode: { solved: 74, loading: true },
+    github: { repos: 1, loading: true }
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [lcRes, ghRes] = await Promise.all([
+          fetch('https://alfa-leetcode-api.onrender.com/mukulxyadav/solved'),
+          fetch('https://api.github.com/users/mukulxyadav')
+        ]);
+        const lcData = await lcRes.json();
+        const ghData = await ghRes.json();
+        
+        setStats({
+          leetcode: { solved: lcData.solvedProblem || 74, loading: false },
+          github: { repos: ghData.public_repos || 1, loading: false }
+        });
+      } catch (e) {
+        setStats(prev => ({ ...prev, leetcode: { ...prev.leetcode, loading: false }, github: { ...prev.github, loading: false } }));
+      }
+    };
+    fetchStats();
+  }, []);
+
   return (
     <SectionWrapper id="work" className="py-24 px-6 bg-neutral-950">
       <div className="container mx-auto">
@@ -34,8 +61,12 @@ export default function BentoGrid() {
                   <div className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">CGPA</div>
                 </div>
                 <div className="glass px-6 py-3 rounded-2xl">
-                  <div className="text-2xl font-bold text-white">46+</div>
+                  <div className="text-2xl font-bold text-white">{stats.leetcode.loading ? '...' : stats.leetcode.solved}+</div>
                   <div className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">LeetCode</div>
+                </div>
+                <div className="glass px-6 py-3 rounded-2xl">
+                  <div className="text-2xl font-bold text-white">{stats.github.loading ? '...' : stats.github.repos}</div>
+                  <div className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">Public Repos</div>
                 </div>
               </div>
 
