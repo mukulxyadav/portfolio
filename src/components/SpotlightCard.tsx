@@ -24,16 +24,16 @@ export default function SpotlightCard({ children, className }: SpotlightCardProp
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative group overflow-hidden rounded-[2rem] border border-white/10 bg-neutral-900/50 transition-colors hover:bg-neutral-900/80 framer-shine ${className}`}
+      className={`relative group overflow-hidden rounded-[2.5rem] border border-white/5 bg-neutral-950/50 transition-all duration-500 hover:border-white/10 hover:bg-neutral-950/80 framer-shine ${className}`}
     >
       {/* Spotlight Background Glow */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[2rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute -inset-px rounded-[2.5rem] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background: useMotionTemplate`
             radial-gradient(
-              650px circle at ${mouseX}px ${mouseY}px,
-              rgba(59, 130, 246, 0.1),
+              600px circle at ${mouseX}px ${mouseY}px,
+              rgba(59, 130, 246, 0.08),
               transparent 80%
             )
           `,
@@ -42,18 +42,18 @@ export default function SpotlightCard({ children, className }: SpotlightCardProp
       
       {/* Spotlight Border Glow */}
       <motion.div
-        className="pointer-events-none absolute -inset-px rounded-[2rem] border border-blue-500/50 opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-10"
+        className="pointer-events-none absolute -inset-px rounded-[2.5rem] border border-blue-500/30 opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-10"
         style={{
           maskImage: useMotionTemplate`
             radial-gradient(
-              150px circle at ${mouseX}px ${mouseY}px,
+              120px circle at ${mouseX}px ${mouseY}px,
               black 45%,
               transparent 100%
             )
           `,
           WebkitMaskImage: useMotionTemplate`
             radial-gradient(
-              150px circle at ${mouseX}px ${mouseY}px,
+              120px circle at ${mouseX}px ${mouseY}px,
               black 45%,
               transparent 100%
             )

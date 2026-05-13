@@ -1,77 +1,82 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  
-  const springConfig = { damping: 25, stiffness: 250 };
-  const springX = useSpring(cursorX, springConfig);
-  const springY = useSpring(cursorY, springConfig);
+  const mouseX = useMotionValue(-100);
+  const mouseY = useMotionValue(-100);
+
+  // Outer ring follows with lag (spring)
+  const ringX = useSpring(mouseX, { stiffness: 140, damping: 18, mass: 0.8 });
+  const ringY = useSpring(mouseY, { stiffness: 140, damping: 18, mass: 0.8 });
+
+  // Dot follows instantly
+  const dotX = useSpring(mouseX, { stiffness: 800, damping: 40 });
+  const dotY = useSpring(mouseY, { stiffness: 800, damping: 40 });
+
+  const isHovering = useRef(false);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const dotRef  = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
+    const onMove = (e: MouseEvent) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
 
-    const handleHoverStart = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.closest("a, button, .interactive")) {
-        setIsHovered(true);
-      }
+    const onEnter = () => {
+      isHovering.current = true;
+      ringRef.current?.classList.add("cursor-hover");
+    };
+    const onLeave = () => {
+      isHovering.current = false;
+      ringRef.current?.classList.remove("cursor-hover");
     };
 
-    const handleHoverEnd = () => {
-      setIsHovered(false);
-    };
+    window.addEventListener("mousemove", onMove, { passive: true });
 
-    window.addEventListener("mousemove", moveCursor);
-    window.addEventListener("mouseover", handleHoverStart);
-    window.addEventListener("mouseout", handleHoverEnd);
-    
+    // Add hover effect to all interactive elements
+    const interactives = document.querySelectorAll(
+      "a, button, [data-cursor-hover], .interactive, input, textarea"
+    );
+    interactives.forEach(el => {
+      el.addEventListener("mouseenter", onEnter);
+      el.addEventListener("mouseleave", onLeave);
+    });
+
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      window.removeEventListener("mouseover", handleHoverStart);
-      window.removeEventListener("mouseout", handleHoverEnd);
+      window.removeEventListener("mousemove", onMove);
+      interactives.forEach(el => {
+        el.removeEventListener("mouseenter", onEnter);
+        el.removeEventListener("mouseleave", onLeave);
+      });
     };
-  }, [cursorX, cursorY, isVisible]);
-
-  if (!isVisible) return null;
+  }, [mouseX, mouseY]);
 
   return (
     <>
-      {/* Main Dot */}
+      {/* Outer glowing ring */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[10000] mix-blend-difference"
+        ref={ringRef}
         style={{
-          x: springX,
-          y: springY,
+          x: ringX,
+          y: ringY,
           translateX: "-50%",
           translateY: "-50%",
         }}
+        className="cursor-ring"
       />
-      
-      {/* Outer Ring */}
+      {/* Inner dot */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-white/30 rounded-full pointer-events-none z-[9999]"
-        animate={{
-          scale: isHovered ? 2 : 1,
-          opacity: isHovered ? 0.5 : 1,
-          borderWidth: isHovered ? "1px" : "1px",
-        }}
+        ref={dotRef}
         style={{
-          x: springX,
-          y: springY,
+          x: dotX,
+          y: dotY,
           translateX: "-50%",
           translateY: "-50%",
         }}
+        className="cursor-dot"
       />
     </>
   );

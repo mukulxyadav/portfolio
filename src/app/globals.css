@@ -2,87 +2,439 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =========================================
+   DESIGN TOKENS
+   ========================================= */
 :root {
-  --foreground: #f8fbff;
-  --background: #05070c;
+  --bg:        #050505;
+  --surface:   rgba(10,10,14,0.82);   /* semi-transparent — lets canvas show */
+  --border:    rgba(255,255,255,0.07);
+  --text:      #f1f1f1;
+  --muted:     #6b7280;
+  --accent:    #3b82f6;
+  --accent-2:  #8b5cf6;
+  --glow:      rgba(59,130,246,0.15);
+}
+
+/* =========================================
+   BASE RESET
+   ========================================= */
+*,*::before,*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: #050505; /* dark fallback before canvas paints */
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  background: transparent; /* canvas handles the background */
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+/* =========================================
+   TYPOGRAPHY SCALE
+   ========================================= */
+.display-1 { font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; }
+.display-2 { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
+.heading-1  { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 600; line-height: 1.2; }
+.heading-2  { font-size: 1.125rem; font-weight: 600; }
+.body-lg    { font-size: 1.0625rem; line-height: 1.75; color: #9ca3af; }
+.body-md    { font-size: 0.9375rem; line-height: 1.7; color: #6b7280; }
+.label      { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
 
+/* =========================================
+   COMPONENT UTILITIES
+   ========================================= */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.glass:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.05);
+.glass-hover {
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.glass-hover:hover {
+  border-color: rgba(59,130,246,0.3);
+  background: rgba(59,130,246,0.04);
+  box-shadow: 0 0 0 1px rgba(59,130,246,0.1), 0 8px 32px rgba(0,0,0,0.4);
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, #fff 0%, #b5b5b5 100%);
+.card {
+  background: rgba(10,10,16,0.75);   /* glassmorphic — lets rain show through */
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+}
+.card:hover {
+  border-color: rgba(59,130,246,0.3);
+  background: rgba(10,10,20,0.85);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.10);
+  transform: translateY(-2px);
+}
+
+.accent-line {
+  width: 36px; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 9px;
+}
+
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.2);
+  color: #93c5fd;
+}
+
+.badge-purple {
+  background: rgba(139,92,246,0.1);
+  border-color: rgba(139,92,246,0.2);
+  color: #c4b5fd;
+}
+
+.badge-green {
+  background: rgba(16,185,129,0.1);
+  border-color: rgba(16,185,129,0.2);
+  color: #6ee7b7;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.text-gradient-blue {
-  background: linear-gradient(135deg, #d5e7ff 12%, #9dc5ff 42%, #7be2cb 100%);
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #60a5fa;
+  margin-bottom: 12px;
+}
+
+.section-eyebrow::before {
+  content: '';
+  display: block;
+  width: 20px; height: 2px;
+  background: #3b82f6;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Button styles */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px;
+  background: #3b82f6;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  background: #2563eb;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.2), 0 8px 24px rgba(59,130,246,0.3);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: #f1f1f1;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.btn-secondary:hover {
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.04);
+  transform: translateY(-1px);
+}
+
+/* Skill tag */
+.skill-tag {
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #d1d5db;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.skill-tag:hover {
+  border-color: rgba(59,130,246,0.35);
+  background: rgba(59,130,246,0.06);
+  color: #93c5fd;
+}
+
+/* Timeline */
+.timeline-dot {
+  width: 10px; height: 10px;
+  background: #3b82f6;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+}
+
+/* Noise overlay */
+.noise-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none; opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #333; }
+
+/* Interactive cursor override */
+.interactive { cursor: pointer; }
+
+/* Code font */
+.mono { font-family: 'Fira Code', 'JetBrains Mono', monospace; }
+
+/* =========================================
+   CUSTOM CURSOR
+   ========================================= */
+* { cursor: none !important; }
+
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(59,130,246,0.7);
+  z-index: 99999;
+  pointer-events: none;
+  will-change: transform;
+  transition: width 0.2s, height 0.2s, border-color 0.2s, background 0.2s;
+  mix-blend-mode: normal;
+}
+.cursor-ring.cursor-hover {
+  width: 56px; height: 56px;
+  border-color: rgba(139,92,246,0.8);
+  background: rgba(139,92,246,0.06);
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #3b82f6;
+  z-index: 99999;
+  pointer-events: none;
+  will-change: transform;
+  box-shadow: 0 0 8px 2px rgba(59,130,246,0.6);
+}
+
+/* =========================================
+   SCROLL REVEAL SYSTEM
+   ========================================= */
+.reveal-root {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+              transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  transition-delay: var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.reveal-root[data-reveal-from="bottom"] { transform: translateY(36px); }
+.reveal-root[data-reveal-from="left"]   { transform: translateX(-36px); }
+.reveal-root[data-reveal-from="right"]  { transform: translateX(36px); }
+.reveal-root[data-reveal-from="scale"]  { transform: scale(0.92); }
+
+.reveal-root.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================
+   BUTTON MICRO-INTERACTIONS
+   ========================================= */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+/* Ripple shine on click */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,0.18) 50%, transparent 80%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.btn-primary:hover::after { transform: translateX(100%); }
+
+/* Pulse glow on hover — enhanced */
+.btn-primary:hover {
+  box-shadow:
+    0 0 0 1px rgba(59,130,246,0.4),
+    0 0 20px rgba(59,130,246,0.35),
+    0 8px 24px rgba(59,130,246,0.25),
+    0 0 50px rgba(59,130,246,0.1);
+}
+
+/* =========================================
+   CARD GLOW SYSTEM
+   ========================================= */
+.card {
+  position: relative;
+  overflow: hidden;
+}
+/* Gradient border glow on hover */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 17px;
+  background: linear-gradient(135deg, rgba(59,130,246,0), rgba(59,130,246,0));
+  transition: background 0.4s;
+  z-index: 0;
+  pointer-events: none;
+}
+.card:hover::before {
+  background: linear-gradient(
+    135deg,
+    rgba(59,130,246,0.2) 0%,
+    rgba(139,92,246,0.15) 50%,
+    rgba(59,130,246,0) 100%
+  );
+}
+/* Ensure inner content is above pseudo-element */
+.card > * { position: relative; z-index: 1; }
+
+/* =========================================
+   SECTION DIVIDER GLOW
+   ========================================= */
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(59,130,246,0.15), transparent);
+  margin: 0;
+}
+
+/* =========================================
+   ANIMATED GRADIENT TEXT
+   ========================================= */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    #60a5fa 0%,
+    #a78bfa 40%,
+    #ec4899 70%,
+    #60a5fa 100%
+  );
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: textShimmer 4s linear infinite;
 }
 
-@layer utilities {
-  .mask-radial {
-    mask-image: radial-gradient(circle at center, black, transparent 80%);
-  }
+@keyframes textShimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
 
-  .framer-glow {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.15), 0 0 40px rgba(59, 130, 246, 0.05);
-  }
+/* =========================================
+   SKILL TAG HOVER GLOW
+   ========================================= */
+.skill-tag {
+  position: relative;
+  overflow: hidden;
+}
+.skill-tag::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.12));
+  transition: opacity 0.25s;
+  border-radius: inherit;
+}
+.skill-tag:hover::after { opacity: 1; }
 
-  .framer-shine {
-    position: relative;
-    overflow: hidden;
-  }
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+  border-radius: 3px;
+}
 
-  .framer-shine::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      45deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.03) 45%,
-      rgba(255, 255, 255, 0.08) 50%,
-      rgba(255, 255, 255, 0.03) 55%,
-      transparent 100%
-    );
-    transform: rotate(-45deg);
-    transition: transform 0.8s ease-in-out;
-    pointer-events: none;
-  }
+/* =========================================
+   NOISE TEXTURE (GRAIN)
+   ========================================= */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99998;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px;
+}
 
-  .framer-shine:hover::after {
-    transform: rotate(-45deg) translate(20%, 20%);
-  }
+/* =========================================
+   FLOATING BADGE PULSE
+   ========================================= */
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+}
+.badge-pulse { animation: badgePulse 2.5s ease-in-out infinite; }
+
+/* =========================================
+   PAGE LOAD FADE-IN
+   ========================================= */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+main { animation: pageFadeIn 0.8s ease-out both; }
+
+/* =========================================
+   MOBILE OVERRIDES
+   ========================================= */
+@media (max-width: 768px) {
+  * { cursor: auto !important; }
+  .cursor-ring, .cursor-dot { display: none; }
 }

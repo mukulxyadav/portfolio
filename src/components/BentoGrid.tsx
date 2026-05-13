@@ -1,143 +1,172 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { motion } from "framer-motion";
-import { FiGithub, FiExternalLink, FiCode, FiUser, FiAward } from "react-icons/fi";
+import { FiGithub, FiExternalLink, FiCode, FiUser, FiAward, FiLayers } from "react-icons/fi";
 import { resumeData } from "../data/resume";
 import SpotlightCard from "./SpotlightCard";
 import SectionWrapper from "./SectionWrapper";
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  }
+};
+
 export default function BentoGrid() {
-  const [stats, setStats] = useState({
-    leetcode: { solved: 74, loading: true },
-    github: { repos: 1, loading: true }
-  });
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const [lcRes, ghRes] = await Promise.all([
-          fetch('https://alfa-leetcode-api.onrender.com/mukulxyadav/solved'),
-          fetch('https://api.github.com/users/mukulxyadav')
-        ]);
-        const lcData = await lcRes.json();
-        const ghData = await ghRes.json();
-        
-        setStats({
-          leetcode: { solved: lcData.solvedProblem || 74, loading: false },
-          github: { repos: ghData.public_repos || 1, loading: false }
-        });
-      } catch (e) {
-        setStats(prev => ({ ...prev, leetcode: { ...prev.leetcode, loading: false }, github: { ...prev.github, loading: false } }));
-      }
-    };
-    fetchStats();
-  }, []);
-
   return (
-    <SectionWrapper id="work" className="py-24 px-6 bg-neutral-950">
+    <SectionWrapper id="work" className="py-32 px-6 bg-black">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          
-          {/* Main About Card */}
-          <SpotlightCard className="md:col-span-8 flex interactive">
-            <div className="p-10 flex flex-col justify-between overflow-hidden relative group w-full h-full">
-              <div className="relative z-10">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-6">
-                  <FiUser /> About Me
-                </div>
-                <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-6 leading-tight">
-                  Crafting robust <br/> <span className="text-neutral-500">backend architectures.</span>
-                </h2>
-                <p className="text-neutral-400 max-w-xl text-lg leading-relaxed">
-                  {resumeData.summary}
-                </p>
-              </div>
-              
-              <div className="mt-12 flex gap-4">
-                <div className="glass px-6 py-3 rounded-2xl">
-                  <div className="text-2xl font-bold text-white">9.16</div>
-                  <div className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">CGPA</div>
-                </div>
-                <div className="glass px-6 py-3 rounded-2xl">
-                  <div className="text-2xl font-bold text-white">{stats.leetcode.loading ? '...' : stats.leetcode.solved}+</div>
-                  <div className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">LeetCode</div>
-                </div>
-                <div className="glass px-6 py-3 rounded-2xl">
-                  <div className="text-2xl font-bold text-white">{stats.github.loading ? '...' : stats.github.repos}</div>
-                  <div className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">Public Repos</div>
-                </div>
-              </div>
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="space-y-32"
+        >
+          {/* Education & Experience Summary */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <motion.div variants={cardVariants} id="about" className="md:col-span-12">
+               <h2 className="text-sm font-mono text-blue-500 uppercase tracking-[0.5em] mb-4">01 // Background</h2>
+               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                 <div className="lg:col-span-2">
+                   <h3 className="text-4xl font-bold text-white mb-6">Education</h3>
+                   <div className="p-8 rounded-2xl border border-white/5 bg-white/[0.02]">
+                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                          <h4 className="text-2xl font-bold text-white">{resumeData.education[0].institution}</h4>
+                          <p className="text-blue-400 font-mono text-sm">{resumeData.education[0].degree}</p>
+                        </div>
+                        <span className="text-neutral-500 font-mono text-xs uppercase tracking-widest">{resumeData.education[0].period}</span>
+                     </div>
+                     <p className="text-neutral-400 leading-relaxed">
+                        Currently focusing on data structures, algorithms, and system design. 
+                        Maintaining a high academic standard while actively building real-world projects.
+                     </p>
+                   </div>
+                 </div>
+                 
+                 <div className="lg:col-span-1">
+                   <h3 className="text-4xl font-bold text-white mb-6">Core Stats</h3>
+                   <div className="grid grid-cols-1 gap-4">
+                     <div className="p-6 rounded-2xl border border-white/5 bg-white/[0.02] flex items-center justify-between">
+                        <span className="text-neutral-500 font-mono text-xs uppercase tracking-widest">CGPA</span>
+                        <span className="text-2xl font-bold text-white">9.16</span>
+                     </div>
+                     <div className="p-6 rounded-2xl border border-white/5 bg-white/[0.02] flex items-center justify-between">
+                        <span className="text-neutral-500 font-mono text-xs uppercase tracking-widest">DSA Solved</span>
+                        <span className="text-2xl font-bold text-white">74+</span>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+            </motion.div>
+          </div>
 
-              {/* Decorative Background Element */}
-              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[100px] -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-150" />
-            </div>
-          </SpotlightCard>
-
-          {/* Education Card */}
-          <SpotlightCard className="md:col-span-4 flex interactive">
-            <div className="p-10 flex flex-col justify-between w-full h-full">
+          {/* Projects Section */}
+          <div className="space-y-12">
+            <motion.div variants={cardVariants} className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-12">
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold text-purple-400 uppercase tracking-widest mb-6">
-                  <FiAward /> Education
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">{resumeData.education[0].institution}</h3>
-                <p className="text-sm text-neutral-500 mb-4">{resumeData.education[0].degree}</p>
+                <h2 className="text-sm font-mono text-blue-500 uppercase tracking-[0.5em] mb-4">02 // Portfolio</h2>
+                <h3 className="text-5xl md:text-7xl font-bold text-white tracking-tighter">Featured Projects</h3>
               </div>
-              <div className="text-neutral-400 text-sm italic">
-                {resumeData.education[0].period}
-              </div>
-            </div>
-          </SpotlightCard>
+              <p className="text-neutral-500 max-w-xs text-sm leading-relaxed">
+                A selection of my recent engineering work, focusing on performance and scalability.
+              </p>
+            </motion.div>
 
-          {/* Projects Loop */}
-          {resumeData.projects.map((project, index) => (
-            <SpotlightCard key={project.name} className="md:col-span-6 flex interactive">
-              <div className={`p-10 flex flex-col justify-between group overflow-hidden relative w-full h-full`}>
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="flex gap-2">
-                      {project.stack.map(s => (
-                        <span key={s} className="text-[10px] font-bold text-neutral-500 border border-white/5 bg-white/5 px-2 py-1 rounded-md uppercase tracking-tighter">
-                          {s}
-                        </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {resumeData.projects.map((project, index) => (
+                <motion.div key={project.name} variants={cardVariants} className="group">
+                  <SpotlightCard className="h-full">
+                    <div className="p-8 md:p-12 flex flex-col h-full">
+                      <div className="flex items-center justify-between mb-8">
+                        <div className="flex flex-wrap gap-2">
+                          {project.stack.map(s => (
+                            <span key={s} className="px-3 py-1 rounded-full border border-white/10 bg-white/5 text-[9px] font-bold text-neutral-500 uppercase tracking-tighter">
+                              {s}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex items-center gap-4 text-neutral-500">
+                          <a href={project.github} target="_blank" className="hover:text-white transition-colors interactive"><FiGithub size={18} /></a>
+                          <a href="#" className="hover:text-white transition-colors interactive"><FiExternalLink size={18} /></a>
+                        </div>
+                      </div>
+
+                      <h4 className="text-3xl font-bold text-white mb-6 group-hover:text-blue-500 transition-colors">{project.name}</h4>
+                      <p className="text-neutral-400 leading-relaxed mb-8 flex-1">
+                        {project.description}
+                      </p>
+
+                      <ul className="space-y-3 mb-10">
+                        {project.bullets.slice(0, 2).map((bullet, i) => (
+                          <li key={i} className="flex gap-3 text-sm text-neutral-500 leading-snug">
+                            <span className="text-blue-500 mt-1">▹</span>
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div className="pt-8 border-t border-white/5 mt-auto">
+                        <a href={project.github} target="_blank" className="inline-flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest group/btn interactive">
+                          View Technical Specs <FiExternalLink className="group-hover/btn:translate-x-1 transition-transform" />
+                        </a>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Skills Section (Practical Grid) */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12" id="skills">
+            <motion.div variants={cardVariants} className="md:col-span-12">
+               <h2 className="text-sm font-mono text-blue-500 uppercase tracking-[0.5em] mb-4">03 // Expertise</h2>
+               <h3 className="text-4xl font-bold text-white mb-12">Technical Skills</h3>
+               
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                 {/* This would ideally map over grouped skills in resumeData */}
+                 <div className="space-y-6">
+                    <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-widest border-b border-white/5 pb-4">Languages</h4>
+                    <div className="flex flex-wrap gap-3">
+                      {['Java', 'JavaScript', 'TypeScript', 'C++', 'SQL'].map(s => (
+                        <span key={s} className="px-4 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-sm text-white">{s}</span>
                       ))}
                     </div>
-                    <div className="flex gap-4">
-                      <a href={project.github} className="text-neutral-500 hover:text-white transition-colors interactive"><FiGithub size={20}/></a>
-                      <a href="#" className="text-neutral-500 hover:text-white transition-colors interactive"><FiExternalLink size={20}/></a>
+                 </div>
+                 <div className="space-y-6">
+                    <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-widest border-b border-white/5 pb-4">Backend</h4>
+                    <div className="flex flex-wrap gap-3">
+                      {['Spring Boot', 'Node.js', 'Express', 'MySQL', 'MongoDB'].map(s => (
+                        <span key={s} className="px-4 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-sm text-white">{s}</span>
+                      ))}
                     </div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">{project.name}</h3>
-                  <p className="text-neutral-500 text-sm leading-relaxed mb-6">
-                    {project.description}
-                  </p>
-                </div>
-              </div>
-            </SpotlightCard>
-          ))}
-
-          {/* Skills Mini Card */}
-          <SpotlightCard className="md:col-span-12 flex interactive">
-            <div className="p-10 flex flex-col md:flex-row items-center justify-between gap-8 w-full h-full">
-              <div>
-                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-[10px] font-bold text-green-400 uppercase tracking-widest mb-6">
-                  <FiCode /> Stack
-                </div>
-                <h2 className="text-3xl font-bold text-white tracking-tighter">Modern Tech Stack</h2>
-              </div>
-              <div className="flex flex-wrap justify-center gap-2 max-w-xl">
-                {Object.values(resumeData.skills).flat().map(skill => (
-                  <span key={skill} className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-neutral-400 text-sm font-medium hover:border-white/20 hover:text-white transition-all cursor-default interactive">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </SpotlightCard>
-
-        </div>
+                 </div>
+                 <div className="space-y-6">
+                    <h4 className="text-xs font-bold text-neutral-500 uppercase tracking-widest border-b border-white/5 pb-4">Engineering</h4>
+                    <div className="flex flex-wrap gap-3">
+                      {['DSA', 'OOP', 'System Design', 'Git', 'REST APIs'].map(s => (
+                        <span key={s} className="px-4 py-2 rounded-xl bg-white/[0.03] border border-white/5 text-sm text-white">{s}</span>
+                      ))}
+                    </div>
+                 </div>
+               </div>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </SectionWrapper>
   );

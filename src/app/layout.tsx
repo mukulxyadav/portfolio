@@ -1,41 +1,53 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import Navbar              from "../components/Navbar";
+import Scene3DBackground   from "../components/Scene3DBackground";
+import CustomCursor        from "../components/CustomCursor";
+import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Mukul Kumar | Portfolio",
-  description: "A world-class modern developer portfolio showcasing backend engineering and high-end design.",
+  title: "Mukul Kumar | Backend Developer & CS Student",
+  description:
+    "Portfolio of Mukul Kumar — Backend Developer, CS Student at SRM Institute. Skilled in Java, C++, MySQL, and System Design.",
+  keywords: ["Mukul Kumar", "backend developer", "SRM", "portfolio", "Java", "MySQL"],
+  openGraph: {
+    title: "Mukul Kumar | Backend Developer",
+    description: "CS Student & Backend Developer at SRM Institute",
+    type: "website",
+  },
 };
-
-import GradientMesh from "../components/GradientMesh";
-import CustomCursor from "../components/CustomCursor";
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body
-        className={cn(
-          "min-h-screen bg-neutral-950 font-sans antialiased selection:bg-white/10 selection:text-white cursor-none",
-          inter.variable,
-          outfit.variable
-        )}
-      >
+    <html lang="en" className="scroll-smooth">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      {/* html has the dark fallback; body is transparent so canvas shows */}
+      <body className={`${inter.variable} font-sans antialiased bg-transparent text-white selection:bg-blue-600/30`}>
+        {/* 3D Three.js animated background — behind everything */}
+        <Scene3DBackground />
+
+        {/* Custom dual-layer cursor */}
         <CustomCursor />
-        <GradientMesh />
-        {children}
+
+        {/* Smooth inertia scroll wrapper (Lenis) */}
+        <SmoothScrollWrapper>
+          <Navbar />
+          {children}
+        </SmoothScrollWrapper>
       </body>
     </html>
   );
