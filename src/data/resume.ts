@@ -31,6 +31,10 @@ export interface Certification {
 
 export interface LeetCodeStats {
   solved: number;
+  easySolved: number;
+  mediumSolved: number;
+  hardSolved: number;
+  ranking: number;
   topics: string[];
 }
 
@@ -160,7 +164,11 @@ export const resumeData: ResumeData = {
   ],
 
   leetcodeStats: {
-    solved: 74,
+    solved: 76,
+    easySolved: 33,
+    mediumSolved: 39,
+    hardSolved: 4,
+    ranking: 0,
     topics: ['Arrays', 'Strings', 'Recursion', 'Basic Data Structures'],
   },
 };

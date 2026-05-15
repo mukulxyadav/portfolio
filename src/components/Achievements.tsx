@@ -1,7 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { resumeData } from "../data/resume";
+import { useEffect, useState } from "react";
+import CountUp from "react-countup";
+import { resumeData, LeetCodeStats } from "../data/resume";
 
 const badgeColors: Record<string, string> = {
   NPTEL:          "badge",
@@ -10,7 +12,33 @@ const badgeColors: Record<string, string> = {
 };
 
 export default function Achievements() {
-  const { certifications, leetcodeStats } = resumeData;
+  const { certifications, leetcodeStats: initialStats } = resumeData;
+  const [stats, setStats] = useState<LeetCodeStats>(initialStats);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchLeetCodeStats() {
+      try {
+        const res = await fetch('/api/leetcode');
+        const data = await res.json();
+        if (data && !data.error) {
+          setStats(prev => ({
+            ...prev,
+            solved: data.solved,
+            easySolved: data.easySolved,
+            mediumSolved: data.mediumSolved,
+            hardSolved: data.hardSolved,
+            ranking: data.ranking
+          }));
+        }
+      } catch (err) {
+        console.error("Failed to fetch LeetCode stats", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchLeetCodeStats();
+  }, []);
 
   return (
     <section id="achievements" className="py-28 scroll-mt-20">
@@ -70,8 +98,16 @@ export default function Achievements() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="card p-6"
+              className="card p-6 relative overflow-hidden"
             >
+              {/* Live indicator */}
+              <div className="absolute top-6 right-6 flex items-center gap-2">
+                <div className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </div>
+              </div>
+
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-orange-500/15 flex items-center justify-center text-orange-400 text-lg">
                   🏆
@@ -83,15 +119,31 @@ export default function Achievements() {
               </div>
 
               <div className="text-5xl font-black text-white mono mb-1">
-                {leetcodeStats.solved}
+                <CountUp end={stats.solved} duration={2} />
                 <span className="text-blue-400 text-2xl">+</span>
               </div>
-              <p className="text-sm text-neutral-500 mb-5">Problems Solved</p>
+              <p className="text-sm text-neutral-500 mb-6">Problems Solved</p>
+
+              {/* Breakdown */}
+              <div className="space-y-3 mb-8 border-b border-white/5 pb-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-neutral-400">Easy</span>
+                  <span className="text-sm font-bold text-green-500">{stats.easySolved}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-neutral-400">Medium</span>
+                  <span className="text-sm font-bold text-yellow-500">{stats.mediumSolved}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-neutral-400">Hard</span>
+                  <span className="text-sm font-bold text-red-500">{stats.hardSolved}</span>
+                </div>
+              </div>
 
               <div className="space-y-2">
-                {leetcodeStats.topics.map(t => (
+                {stats.topics.map(t => (
                   <div key={t} className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50 flex-shrink-0" />
                     <span className="text-sm text-neutral-400">{t}</span>
                   </div>
                 ))}
@@ -101,7 +153,7 @@ export default function Achievements() {
                 href={resumeData.leetcode}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-primary w-full justify-center mt-6 interactive"
+                className="btn-primary w-full justify-center mt-8 interactive"
               >
                 View LeetCode Profile
               </a>
