@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
+import CountUp from "react-countup";
 import { resumeData } from "../data/resume";
 import { useLeetCodeStats } from "../hooks/useLeetCodeStats";
 
@@ -14,16 +15,20 @@ const fadeUp: Variants = {
   }),
 };
 
-const stat = (label: string, value: string, sub?: string) => ({ label, value, sub });
+const stat = (label: string, value: any, sub?: string, isLive?: boolean) => ({ label, value, sub, isLive });
 
 export default function Hero() {
   const { stats: leetcodeStats } = useLeetCodeStats();
+  const solvedCount = leetcodeStats?.solved || resumeData.leetcodeStats.solved;
   
   const stats = [
     stat("CGPA", "9.16", "/ 10.0"),
-    stat("LeetCode", `${leetcodeStats?.solved || resumeData.leetcodeStats.solved}+`, "Problems"),
+    stat("LeetCode", solvedCount, "Problems", true),
     stat("Certs", "5+", "Completed"),
   ];
+
+  // Make summary dynamic
+  const dynamicSummary = resumeData.summary.replace("76+", `${solvedCount}+`);
 
   return (
     <section
@@ -84,7 +89,7 @@ export default function Hero() {
               custom={3} variants={fadeUp} initial="hidden" animate="show"
               className="body-lg max-w-xl mb-10"
             >
-              {resumeData.summary}
+              {dynamicSummary}
             </motion.p>
 
             <motion.div
@@ -158,7 +163,14 @@ export default function Hero() {
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {stats.map((s, i) => (
                   <div key={s.label} className="text-center">
-                    <div className="text-2xl font-black text-white mono">{s.value}</div>
+                    <div className="text-2xl font-black text-white mono">
+                      {typeof s.value === 'number' ? (
+                        <>
+                          <CountUp end={s.value} duration={2} />
+                          <span className="text-blue-400 text-sm ml-0.5">+</span>
+                        </>
+                      ) : s.value}
+                    </div>
                     <div className="text-[10px] text-neutral-500 font-bold uppercase tracking-wider mt-1">{s.label}</div>
                     {s.sub && <div className="text-[10px] text-neutral-700">{s.sub}</div>}
                   </div>
