@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { resumeData } from "../data/resume";
+import { useLeetCodeStats } from "../hooks/useLeetCodeStats";
 
 const categoryConfig: Record<string, { color: string; badgeClass: string; icon: string }> = {
   Languages: { color: "#3b82f6", badgeClass: "badge",        icon: "{ }" },
@@ -13,6 +14,7 @@ const categoryConfig: Record<string, { color: string; badgeClass: string; icon: 
 
 export default function Skills() {
   const { skills } = resumeData;
+  const { stats: leetcodeStats } = useLeetCodeStats();
   const categories = Object.entries(skills) as [string, string[]][];
 
   return (
@@ -99,7 +101,7 @@ export default function Skills() {
 
             <div className="flex items-end justify-between mb-3">
               <div>
-                <div className="text-3xl font-black text-white mono">74<span className="text-blue-400">+</span></div>
+                <div className="text-3xl font-black text-white mono">{leetcodeStats?.solved || resumeData.leetcodeStats.solved}<span className="text-blue-400">+</span></div>
                 <div className="text-xs text-neutral-500 mt-0.5">Problems Solved</div>
               </div>
               <a href={resumeData.leetcode} target="_blank" rel="noreferrer"

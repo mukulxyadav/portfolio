@@ -3,6 +3,7 @@
 import { motion, Variants } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { resumeData } from "../data/resume";
+import { useLeetCodeStats } from "../hooks/useLeetCodeStats";
 
 // Framer Motion fade-up variant
 const fadeUp: Variants = {
@@ -15,13 +16,15 @@ const fadeUp: Variants = {
 
 const stat = (label: string, value: string, sub?: string) => ({ label, value, sub });
 
-const stats = [
-  stat("CGPA", "9.16", "/ 10.0"),
-  stat("LeetCode", "74+", "Problems"),
-  stat("Certs", "5+", "Completed"),
-];
-
 export default function Hero() {
+  const { stats: leetcodeStats } = useLeetCodeStats();
+  
+  const stats = [
+    stat("CGPA", "9.16", "/ 10.0"),
+    stat("LeetCode", `${leetcodeStats?.solved || resumeData.leetcodeStats.solved}+`, "Problems"),
+    stat("Certs", "5+", "Completed"),
+  ];
+
   return (
     <section
       id="home"

@@ -68,7 +68,7 @@ export const resumeData: ResumeData = {
   instagram: 'https://www.instagram.com/mukulxyadav/',
 
   summary:
-    'Second-year B.Tech Computer Science student with strong foundations in C, C++, Java, and Python. Skilled in data structures, problem-solving, and backend development with hands-on experience building database-driven applications. Solved 74+ LeetCode problems through consistent algorithm practice.',
+    'Second-year B.Tech Computer Science student with strong foundations in C, C++, Java, and Python. Skilled in data structures, problem-solving, and backend development with hands-on experience building database-driven applications. Solved 76+ LeetCode problems through consistent algorithm practice.',
 
   education: [
     {
@@ -192,7 +192,7 @@ export const chatbotKnowledge = [
   {
     triggers: ['leetcode', 'coding', 'competitive', 'problems'],
     response:
-      'Mukul has solved 74+ LeetCode problems spanning arrays, strings, recursion, and foundational data-structure topics.',
+      'Mukul has solved 76+ LeetCode problems spanning arrays, strings, recursion, and foundational data-structure topics.',
   },
   {
     triggers: ['certificate', 'nptel', 'gfg', 'geeks', 'achievement'],

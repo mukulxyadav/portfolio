@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import { resumeData } from "../data/resume";
+import { useLeetCodeStats } from "../hooks/useLeetCodeStats";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -21,7 +22,17 @@ const skillColors: Record<string, string> = {
 
 export default function About() {
   const { education, skills } = resumeData;
+  const { stats: leetcodeStats } = useLeetCodeStats();
   const edu = education[0];
+
+  const facts = [
+    { icon: "📍", label: "Location",    value: "India" },
+    { icon: "🎓", label: "University",  value: "SRM Institute" },
+    { icon: "📊", label: "CGPA",        value: edu.cgpa },
+    { icon: "💻", label: "LeetCode",    value: `${leetcodeStats?.solved || resumeData.leetcodeStats.solved}+ Problems Solved` },
+    { icon: "📧", label: "Email",       value: resumeData.email },
+    { icon: "🚀", label: "Status",      value: "Open to Internships" },
+  ];
 
   return (
     <section id="about" className="py-28 scroll-mt-20">
@@ -96,14 +107,7 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="lg:col-span-2 space-y-4"
           >
-            {[
-              { icon: "📍", label: "Location",    value: "India" },
-              { icon: "🎓", label: "University",  value: "SRM Institute" },
-              { icon: "📊", label: "CGPA",        value: edu.cgpa },
-              { icon: "💻", label: "LeetCode",    value: "74+ Problems Solved" },
-              { icon: "📧", label: "Email",       value: resumeData.email },
-              { icon: "🚀", label: "Status",      value: "Open to Internships" },
-            ].map((f, i) => (
+            {facts.map((f, i) => (
               <motion.div
                 key={f.label}
                 custom={i}
