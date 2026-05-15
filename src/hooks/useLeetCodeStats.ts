@@ -7,8 +7,6 @@ interface LeetCodeStats {
   easy: number;
   medium: number;
   hard: number;
-  acceptance: number;
-  ranking: number;
   topics?: string[];
 }
 
@@ -35,6 +33,7 @@ export function useLeetCodeStats(): UseLeetCodeStatsReturn {
         headers: {
           'Content-Type': 'application/json',
         },
+        cache: 'no-store',
       });
 
       if (!response.ok) {
@@ -43,7 +42,7 @@ export function useLeetCodeStats(): UseLeetCodeStatsReturn {
 
       const data = await response.json();
       
-      // Add topics based on difficulty distribution
+      // Map API response to our stats format
       const topics = [
         'Arrays',
         'Strings', 
@@ -51,15 +50,21 @@ export function useLeetCodeStats(): UseLeetCodeStatsReturn {
         'Basic Data Structures',
       ];
 
-      setStats({
-        ...data,
+      // Handle both camelCase and snake_case responses
+      const mappedStats: LeetCodeStats = {
+        solved: data.totalSolved || data.solved || 0,
+        easy: data.easySolved || data.easy || 0,
+        medium: data.mediumSolved || data.medium || 0,
+        hard: data.hardSolved || data.hard || 0,
         topics,
-      });
+      };
+
+      console.log('Fetched LeetCode stats:', mappedStats);
+      setStats(mappedStats);
       setLastUpdated(new Date());
     } catch (err) {
       console.error('Error fetching LeetCode stats:', err);
       setError(true);
-      // Stats will be null, component will use fallback
     } finally {
       setLoading(false);
     }
