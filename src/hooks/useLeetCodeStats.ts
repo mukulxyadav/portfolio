@@ -1,14 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-
-interface LeetCodeStats {
-  solved: number;
-  easy: number;
-  medium: number;
-  hard: number;
-  topics?: string[];
-}
+import { LeetCodeStats } from '../data/resume';
 
 interface UseLeetCodeStatsReturn {
   stats: LeetCodeStats | null;
@@ -52,10 +45,11 @@ export function useLeetCodeStats(): UseLeetCodeStatsReturn {
 
       // Handle both camelCase and snake_case responses
       const mappedStats: LeetCodeStats = {
-        solved: data.totalSolved || data.solved || 0,
-        easy: data.easySolved || data.easy || 0,
-        medium: data.mediumSolved || data.medium || 0,
-        hard: data.hardSolved || data.hard || 0,
+        solved: data.solved || data.totalSolved || 0,
+        easySolved: data.easySolved || data.easy || 0,
+        mediumSolved: data.mediumSolved || data.medium || 0,
+        hardSolved: data.hardSolved || data.hard || 0,
+        ranking: data.ranking || 0,
         topics,
       };
 

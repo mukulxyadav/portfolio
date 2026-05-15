@@ -106,15 +106,15 @@ export default function Achievements() {
               <div className="space-y-3 mb-8 border-b border-white/5 pb-6">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-neutral-400">Easy</span>
-                  <span className="text-sm font-bold text-green-500">{displayStats.easySolved || (displayStats as any).easy || 0}</span>
+                  <span className="text-sm font-bold text-green-500">{displayStats.easySolved}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-neutral-400">Medium</span>
-                  <span className="text-sm font-bold text-yellow-500">{displayStats.mediumSolved || (displayStats as any).medium || 0}</span>
+                  <span className="text-sm font-bold text-yellow-500">{displayStats.mediumSolved}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-neutral-400">Hard</span>
-                  <span className="text-sm font-bold text-red-500">{displayStats.hardSolved || (displayStats as any).hard || 0}</span>
+                  <span className="text-sm font-bold text-red-500">{displayStats.hardSolved}</span>
                 </div>
               </div>
 
