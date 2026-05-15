@@ -93,10 +93,10 @@ export default function Achievements() {
                     {loading ? "Updating..." : "Algorithmic Practice"}
                   </p>
                 </div>
-                {!loading && lastUpdated && (
+                {!loading && liveStats && (
                   <div 
                     className="w-2 h-2 rounded-full bg-green-500 animate-pulse"
-                    title={`Last updated: ${lastUpdated.toLocaleTimeString()}`}
+                    title={`Live • Last updated: ${lastUpdated?.toLocaleTimeString()}`}
                   />
                 )}
               </div>
@@ -145,9 +145,9 @@ export default function Achievements() {
               </a>
 
               {/* Error indicator */}
-              {error && (
+              {error && !liveStats && (
                 <p className="text-xs text-neutral-500 mt-3 text-center">
-                  ⚠️ Using cached data
+                  ⚠️ Using default data
                 </p>
               )}
             </motion.div>
