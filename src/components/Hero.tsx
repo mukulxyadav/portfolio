@@ -102,12 +102,28 @@ export default function Hero() {
                 </svg>
                 View Projects
               </a>
-              <a href={resumeData.linkedin} target="_blank" rel="noreferrer" className="btn-secondary interactive">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <motion.a 
+                href={resumeData.linkedin} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-secondary interactive group relative"
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                title="Connect with me on LinkedIn"
+              >
+                <svg className="w-4 h-4 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.004 1.418-.103.249-.129.597-.129.946v5.441h-3.554s.05-8.814 0-9.737h3.554v1.377c.43-.664 1.199-1.61 2.920-1.61 2.134 0 3.733 1.39 3.733 4.379v5.591zM5.337 8.855c-1.144 0-1.915-.759-1.915-1.71 0-.955.771-1.71 1.958-1.71 1.187 0 1.915.755 1.915 1.71 0 .951-.728 1.71-1.958 1.71zm1.595 11.597H3.762V9.571h3.170v10.881zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0" />
                 </svg>
                 Let's Talk
-              </a>
+                
+                {/* Tooltip equivalent */}
+                <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-neutral-900 text-[10px] text-white rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10">
+                  Connect on LinkedIn
+                </span>
+              </motion.a>
             </motion.div>
 
             {/* Social row */}

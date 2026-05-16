@@ -14,12 +14,21 @@ interface ContactRequest {
   name: string;
   email: string;
   message: string;
+  honeypot?: string;
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body: ContactRequest = await request.json();
-    const { name, email, message } = body;
+    const { name, email, message, honeypot } = body;
+
+    // Honeypot spam protection
+    if (honeypot) {
+      return NextResponse.json(
+        { error: 'Spam detected' },
+        { status: 400 }
+      );
+    }
 
     // Validate input
     if (!name || !email || !message) {
