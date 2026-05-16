@@ -10,6 +10,7 @@ type Status = "idle" | "sending" | "sent" | "error";
 export default function Contact() {
   const [form,   setForm]   = useState<FormState>({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
@@ -17,12 +18,33 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
+    
     setStatus("sending");
-    // mailto fallback (no backend needed)
-    const subject = encodeURIComponent(`Portfolio inquiry from ${form.name}`);
-    const body    = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\nMessage:\n${form.message}`);
-    window.open(`mailto:mukulxyadav@gmail.com?subject=${subject}&body=${body}`, "_blank");
-    setTimeout(() => setStatus("sent"), 1000);
+    setErrorMsg("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setStatus("sent");
+      setForm({ name: "", email: "", message: "" });
+      setTimeout(() => setStatus("idle"), 3000);
+    } catch (error) {
+      setStatus("error");
+      setErrorMsg(error instanceof Error ? error.message : "An error occurred");
+      setTimeout(() => {
+        setStatus("idle");
+        setErrorMsg("");
+      }, 3000);
+    }
   };
 
   const socials = [
@@ -102,6 +124,17 @@ export default function Contact() {
                 />
               </div>
 
+              {/* Status Messages */}
+              {status === "error" && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-sm"
+                >
+                  ✗ {errorMsg}
+                </motion.div>
+              )}
+
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 type="submit"
@@ -110,8 +143,8 @@ export default function Contact() {
                   (status === "sending" || status === "sent") ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
-                {status === "sending" ? "Opening mail client…" :
-                 status === "sent"    ? "✓ Email draft opened" :
+                {status === "sending" ? "Sending..." :
+                 status === "sent"    ? "✓ Message sent successfully!" :
                  "Send Message"}
               </motion.button>
             </form>
