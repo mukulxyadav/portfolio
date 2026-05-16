@@ -47,6 +47,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check for environment variables
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
+      console.error('Missing EMAIL_USER or EMAIL_PASSWORD environment variables');
+      return NextResponse.json(
+        { error: 'Server configuration error: Missing email credentials. Please set EMAIL_USER and EMAIL_PASSWORD in your environment variables.' },
+        { status: 500 }
+      );
+    }
+
     // Send email to you
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
@@ -107,10 +116,19 @@ export async function POST(request: NextRequest) {
       { success: true, message: 'Email sent successfully' },
       { status: 200 }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error('Email error:', error);
+    
+    // Provide more specific error messages for common issues
+    let userFriendlyError = 'Failed to send email';
+    if (error.code === 'EAUTH') {
+      userFriendlyError = 'Authentication failed. Please check your EMAIL_USER and EMAIL_PASSWORD (App Password).';
+    } else if (error.code === 'ESOCKET') {
+      userFriendlyError = 'Network error. Please check your internet connection.';
+    }
+
     return NextResponse.json(
-      { error: 'Failed to send email' },
+      { error: userFriendlyError },
       { status: 500 }
     );
   }
