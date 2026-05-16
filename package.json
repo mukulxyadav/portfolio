@@ -30,13 +30,15 @@
     "react-type-animation": "^3.2.0",
     "tailwind-merge": "^2.3.0",
     "three": "^0.184.0",
-    "tsparticles": "^3.9.1"
+    "tsparticles": "^3.9.1",
+    "nodemailer": "^6.9.13"
   },
   "devDependencies": {
     "@types/node": "25.7.0",
     "autoprefixer": "^10.5.0",
     "postcss": "^8.5.14",
     "tailwindcss": "^3.4.1",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "@types/nodemailer": "^6.4.14"
   }
 }
