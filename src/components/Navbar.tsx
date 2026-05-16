@@ -72,12 +72,22 @@ export default function Navbar() {
             >
               GitHub
             </a>
-            <a
-              href="mailto:mukulxyadav@gmail.com"
-              className="btn-primary !py-2.5 !px-5 !text-sm"
+            <motion.a
+              href={resumeData.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary !py-2.5 !px-5 !text-sm relative group"
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 0 15px rgba(59, 130, 246, 0.4)"
+              }}
+              whileTap={{ scale: 0.95 }}
             >
               Let&apos;s Talk
-            </a>
+              <span className="absolute -bottom-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-neutral-900 text-[9px] text-white rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10 font-bold">
+                Connect on LinkedIn
+              </span>
+            </motion.a>
           </div>
 
           {/* Mobile toggle */}
@@ -117,12 +127,15 @@ export default function Navbar() {
                   {l.label}
                 </Link>
               ))}
-              <a
-                href="mailto:mukulxyadav@gmail.com"
+              <motion.a
+                href={resumeData.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary mt-2 self-start"
+                whileTap={{ scale: 0.95 }}
               >
                 Let&apos;s Talk
-              </a>
+              </motion.a>
             </nav>
           </motion.div>
         )}

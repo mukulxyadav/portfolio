@@ -22,6 +22,10 @@ export const metadata: Metadata = {
     description: "CS Student & Backend Developer at SRM Institute",
     type: "website",
   },
+  icons: {
+    icon: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 
 export default function RootLayout({
