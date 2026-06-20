@@ -51,7 +51,7 @@ const TextReveal = React.memo(function TextReveal({
     className: `inline-block relative no-underline font-extrabold uppercase tracking-tight overflow-hidden cursor-pointer select-none ${className}`.trim(),
     style: {
       fontSize,
-      ...(color !== "inherit" || hovered ? { color: hovered ? hoverColor : color } : {}),
+      color: hovered ? hoverColor : color,
       transition: "color 0.35s ease",
       padding: "0.15em 0.4em",
       lineHeight: 1,
@@ -68,33 +68,33 @@ const TextReveal = React.memo(function TextReveal({
     if (target) rootProps.target = target;
     if (target === "_blank") rootProps.rel = "noopener noreferrer";
   }
-  const Comp = Component as React.FC<any>;
 
   return (
-    <Comp {...rootProps}>
+    // @ts-expect-error TypeScript gets confused with dynamic ElementType and children
+    <Component {...rootProps}>
       <span
         className="inline-flex overflow-hidden relative"
-        style={{ height: "1.1em", lineHeight: "1.1em" }}
+        style={{ height: "1em" }}
         aria-hidden="true"
       >
         {chars.map((char, i) => (
           <span
             key={i}
-            className={`inline-flex flex-col relative will-change-transform ${direction === "down" ? "-top-[1.1em]" : ""}`}
+            className="inline-block relative will-change-transform"
             style={{
+              textShadow: `0 ${sign}em currentColor`,
               transition: `transform ${duration}ms ${easing}`,
               transitionDelay: `${i * staggerDelay}ms`,
               transform: hovered
-                ? `translateY(${direction === "up" ? "-50%" : "50%"})`
+                ? `translateY(${-sign}em)`
                 : "translateY(0)",
             }}
           >
-            <span style={{ height: "1.1em", lineHeight: "1.1em" }}>{char === " " ? "\u00A0" : char}</span>
-            <span style={{ height: "1.1em", lineHeight: "1.1em" }}>{char === " " ? "\u00A0" : char}</span>
+            {char === " " ? "\u00A0" : char}
           </span>
         ))}
       </span>
-    </Comp>
+    </Component>
   );
 });
 

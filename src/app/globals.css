@@ -389,6 +389,20 @@ hr {
 }
 
 /* =========================================
+   ANIMATED COLOR TEXT (For TextReveal)
+   ========================================= */
+@keyframes colorShimmer {
+  0% { color: #60a5fa; }
+  33% { color: #a78bfa; }
+  66% { color: #ec4899; }
+  100% { color: #60a5fa; }
+}
+
+.color-shimmer-text {
+  animation: colorShimmer 4s linear infinite;
+}
+
+/* =========================================
    SKILL TAG HOVER GLOW
    ========================================= */
 .skill-tag {
