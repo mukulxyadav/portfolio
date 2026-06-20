@@ -5,6 +5,8 @@ import Navbar              from "../components/Navbar";
 import Scene3DBackground   from "../components/Scene3DBackground";
 import CustomCursor        from "../components/CustomCursor";
 import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
+import { LoadingProvider } from "../components/LoadingProvider";
+import LoadingScreen       from "../components/LoadingScreen";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,17 +43,21 @@ export default function RootLayout({
       </head>
       {/* html has the dark fallback; body is transparent so canvas shows */}
       <body className={`${inter.variable} font-sans antialiased bg-transparent text-white selection:bg-blue-600/30`}>
-        {/* 3D Three.js animated background — behind everything */}
-        <Scene3DBackground />
+        <LoadingProvider>
+          <LoadingScreen />
+          
+          {/* 3D Three.js animated background — behind everything */}
+          <Scene3DBackground />
 
-        {/* Custom dual-layer cursor */}
-        <CustomCursor />
+          {/* Custom dual-layer cursor */}
+          <CustomCursor />
 
-        {/* Smooth inertia scroll wrapper (Lenis) */}
-        <SmoothScrollWrapper>
-          <Navbar />
-          {children}
-        </SmoothScrollWrapper>
+          {/* Smooth inertia scroll wrapper (Lenis) */}
+          <SmoothScrollWrapper>
+            <Navbar />
+            {children}
+          </SmoothScrollWrapper>
+        </LoadingProvider>
       </body>
     </html>
   );

@@ -221,7 +221,7 @@ export default function Contact() {
                   whileTap={{ scale: 0.98 }}
                   type="submit"
                   disabled={status === "sending" || status === "sent"}
-                  className={`relative w-full py-4 rounded-2xl font-bold text-sm tracking-widest uppercase transition-all duration-500 overflow-hidden ${
+                  className={`relative w-full py-4 rounded-full font-bold text-sm tracking-widest uppercase transition-all duration-500 overflow-hidden ${
                     status === "sent" ? "bg-green-500 text-white" : "bg-blue-600 text-white hover:bg-blue-500 shadow-lg shadow-blue-600/20"
                   } ${(status === "sending") ? "opacity-70 cursor-not-allowed" : ""}`}
                 >

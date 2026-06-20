@@ -20,7 +20,9 @@
 
 import { useRef, useMemo, useEffect, useState, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useProgress } from "@react-three/drei";
 import * as THREE from "three";
+import { useLoading } from "./LoadingProvider";
 
 // ─── Site palette ─────────────────────────────────────────────────────────────
 const C_BLUE   = new THREE.Color("#3b82f6");
@@ -284,6 +286,24 @@ function Scene({ mobile, scrollY }: { mobile: boolean; scrollY: React.MutableRef
   );
 }
 
+// ─── Scene Progress Tracker ─────────────────────────────────────────────────────
+function SceneProgressTracker() {
+  const { progress, active } = useProgress();
+  const { setProgress, setLoading, splineLoaded } = useLoading();
+
+  useEffect(() => {
+    // We only update if active, meaning it's still loading assets
+    setProgress(progress);
+    
+    // Once progress hits 100, no longer active, AND spline is loaded, mark loading as done.
+    if (progress === 100 && !active && splineLoaded) {
+      setTimeout(() => setLoading(false), 500);
+    }
+  }, [progress, active, setProgress, setLoading, splineLoaded]);
+
+  return null;
+}
+
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function Scene3DBackground() {
   const isBrowser = typeof window !== "undefined";
@@ -331,6 +351,7 @@ export default function Scene3DBackground() {
         style={{ width: "100%", height: "100%" }}
       >
         <Suspense fallback={null}>
+          <SceneProgressTracker />
           <Scene mobile={mobile} scrollY={scrollY} />
         </Suspense>
       </Canvas>
