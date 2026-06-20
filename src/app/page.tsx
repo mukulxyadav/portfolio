@@ -3,7 +3,6 @@
 import Hero         from "../components/Hero";
 import About        from "../components/About";
 import Skills       from "../components/Skills";
-import Interactive3D from "../components/Interactive3D";
 import Projects     from "../components/Projects";
 import Achievements from "../components/Achievements";
 import Contact      from "../components/Contact";
@@ -24,7 +23,7 @@ export default function Home() {
       <Reveal from="bottom" delay={0.05}><Skills /></Reveal>
 
       <div className="max-w-6xl mx-auto px-6"><hr /></div>
-      <Reveal from="bottom" delay={0.05}><Interactive3D /></Reveal>
+      <Reveal from="bottom" delay={0.05}><Skills /></Reveal>
 
       <div className="max-w-6xl mx-auto px-6"><hr /></div>
       <Reveal from="bottom" delay={0.05}><Projects /></Reveal>
