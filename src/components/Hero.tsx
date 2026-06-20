@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { Spotlight } from "@/components/ui/spotlight";
@@ -23,10 +24,53 @@ export default function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const { setSplineLoaded } = useLoading();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Forward pointer events to the Spline canvas so it reacts even when hovering over text
+  useEffect(() => {
+    const handlePointerMove = (e: any) => {
+      if (e.target?.tagName === 'CANVAS') return;
+      
+      const canvas = sectionRef.current?.querySelector('canvas');
+      if (canvas) {
+        let evt;
+        if (window.PointerEvent && e instanceof PointerEvent) {
+          evt = new PointerEvent(e.type, {
+            clientX: e.clientX,
+            clientY: e.clientY,
+            bubbles: true,
+            cancelable: true,
+            pointerId: e.pointerId,
+            pointerType: e.pointerType,
+            isPrimary: e.isPrimary,
+          });
+        } else {
+          evt = new MouseEvent(e.type, {
+            clientX: e.clientX,
+            clientY: e.clientY,
+            bubbles: true,
+            cancelable: true,
+          });
+        }
+        canvas.dispatchEvent(evt);
+      }
+    };
+
+    const section = sectionRef.current;
+    if (section) {
+      section.addEventListener('pointermove', handlePointerMove);
+      section.addEventListener('mousemove', handlePointerMove);
+      return () => {
+        section.removeEventListener('pointermove', handlePointerMove);
+        section.removeEventListener('mousemove', handlePointerMove);
+      };
+    }
+  }, []);
 
   return (
     <section
       id="home"
+      ref={sectionRef}
       className="relative w-full h-[100svh] flex items-center justify-center overflow-hidden"
     >
       {/* Premium Animated Background */}
