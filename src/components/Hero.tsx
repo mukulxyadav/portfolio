@@ -63,9 +63,9 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-[1.1]"
+            className="text-5xl md:text-7xl font-extrabold text-white mb-4 tracking-tight leading-[1.1]"
           >
-            <GradientText as="div" className="bg-transparent dark:bg-transparent">
+            <GradientText as="div">
               <TextReveal 
                 as="span" 
                 text="Mukul Kumar" 
