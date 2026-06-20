@@ -23,9 +23,6 @@ export default function Home() {
       <Reveal from="bottom" delay={0.05}><Skills /></Reveal>
 
       <div className="max-w-6xl mx-auto px-6"><hr /></div>
-      <Reveal from="bottom" delay={0.05}><Skills /></Reveal>
-
-      <div className="max-w-6xl mx-auto px-6"><hr /></div>
       <Reveal from="bottom" delay={0.05}><Projects /></Reveal>
 
       <div className="max-w-6xl mx-auto px-6"><hr /></div>
