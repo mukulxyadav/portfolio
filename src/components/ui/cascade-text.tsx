@@ -51,7 +51,7 @@ const TextReveal = React.memo(function TextReveal({
     className: `inline-block relative no-underline font-extrabold uppercase tracking-tight overflow-hidden cursor-pointer select-none ${className}`.trim(),
     style: {
       fontSize,
-      color: hovered ? hoverColor : color,
+      ...(color !== "inherit" || hovered ? { color: hovered ? hoverColor : color } : {}),
       transition: "color 0.35s ease",
       padding: "0.15em 0.4em",
       lineHeight: 1,
@@ -74,23 +74,23 @@ const TextReveal = React.memo(function TextReveal({
     <Comp {...rootProps}>
       <span
         className="inline-flex overflow-hidden relative"
-        style={{ height: "1em" }}
+        style={{ height: "1.1em", lineHeight: "1.1em" }}
         aria-hidden="true"
       >
         {chars.map((char, i) => (
           <span
             key={i}
-            className="inline-block relative will-change-transform"
+            className={`inline-flex flex-col relative will-change-transform ${direction === "down" ? "-top-[1.1em]" : ""}`}
             style={{
-              textShadow: `0 ${sign}em currentColor`,
               transition: `transform ${duration}ms ${easing}`,
               transitionDelay: `${i * staggerDelay}ms`,
               transform: hovered
-                ? `translateY(${-sign}em)`
+                ? `translateY(${direction === "up" ? "-50%" : "50%"})`
                 : "translateY(0)",
             }}
           >
-            {char === " " ? "\u00A0" : char}
+            <span style={{ height: "1.1em", lineHeight: "1.1em" }}>{char === " " ? "\u00A0" : char}</span>
+            <span style={{ height: "1.1em", lineHeight: "1.1em" }}>{char === " " ? "\u00A0" : char}</span>
           </span>
         ))}
       </span>

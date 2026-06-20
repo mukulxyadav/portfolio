@@ -62,15 +62,13 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="flex flex-wrap items-center gap-x-2 text-5xl md:text-7xl font-extrabold text-white mb-4 tracking-tight leading-[1.1]"
+            className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-[1.1]"
           >
-            <TextReveal as="span" text="Mukul" fontSize="inherit" color="#ffffff" hoverColor="#94a3b8" style={{ padding: 0 }} />
             <TextReveal 
               as="span" 
-              text="Kumar" 
+              text="Mukul Kumar" 
               fontSize="inherit" 
-              color="#8b5cf6" 
-              hoverColor="#60a5fa" 
+              className="gradient-text" 
               style={{ padding: 0 }} 
             />
           </motion.h1>
