@@ -26,14 +26,14 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative w-full h-[100svh] flex items-center justify-center overflow-hidden bg-[#050505]"
+      className="relative w-full h-[100svh] flex items-center justify-center overflow-hidden"
     >
       {/* Premium Animated Background */}
       <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#050505]/80 to-[#050505] z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-black/0 via-black/40 to-black/80 z-0 pointer-events-none" />
       
       {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-10 z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 z-0 pointer-events-none" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 flex flex-col-reverse lg:flex-row items-center h-full">
         
