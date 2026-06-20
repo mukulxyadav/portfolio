@@ -23,39 +23,73 @@ async function fetchFromLeetCodeAPI(
   username: string
 ): Promise<LeetCodeStats | null> {
   try {
-    console.log(`[LeetCode API] Fetching stats for username: ${username} using Alfa API`);
+    console.log(`[LeetCode API] Fetching stats for username: ${username} using GraphQL`);
     
-    // Using alfa-leetcode-api which is generally more reliable than direct GraphQL
-    const response = await fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved`, {
-      method: 'GET',
+    const query = `
+      query getUserProfile($username: String!) { 
+        matchedUser(username: $username) { 
+          submitStats { 
+            acSubmissionNum { 
+              difficulty 
+              count 
+            } 
+          } 
+          profile { 
+            reputation 
+            ranking 
+          } 
+        } 
+      }
+    `;
+
+    const response = await fetch('https://leetcode.com/graphql', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0',
       },
+      body: JSON.stringify({
+        query,
+        variables: { username }
+      }),
       signal: AbortSignal.timeout(10000), // 10 second timeout
     });
 
     if (!response.ok) {
-      console.error(`[LeetCode API] Alfa API responded with status ${response.status}`);
+      console.error(`[LeetCode API] GraphQL API responded with status ${response.status}`);
       return null;
     }
 
-    const data = await response.json();
+    const json = await response.json();
+    
+    if (json.errors) {
+      console.error(`[LeetCode API] GraphQL errors:`, json.errors);
+      return null;
+    }
 
+    const userData = json.data?.matchedUser;
+    if (!userData) {
+      console.error(`[LeetCode API] User ${username} not found`);
+      return null;
+    }
+
+    const submissions = userData.submitStats.acSubmissionNum;
+    
     const stats: LeetCodeStats = {
-      totalSolved: data.solvedProblem || 0,
-      easySolved: data.easySolved || 0,
-      mediumSolved: data.mediumSolved || 0,
-      hardSolved: data.hardSolved || 0,
-      acceptance: 0, // Alfa API doesn't provide this in /solved
-      ranking: data.ranking || 0,
-      reputation: 0,
+      totalSolved: submissions.find((s: any) => s.difficulty === 'All')?.count || 0,
+      easySolved: submissions.find((s: any) => s.difficulty === 'Easy')?.count || 0,
+      mediumSolved: submissions.find((s: any) => s.difficulty === 'Medium')?.count || 0,
+      hardSolved: submissions.find((s: any) => s.difficulty === 'Hard')?.count || 0,
+      acceptance: 0, 
+      ranking: userData.profile.ranking || 0,
+      reputation: userData.profile.reputation || 0,
       contributionPoints: 0,
     };
 
     console.log(`[LeetCode API] Successfully fetched data:`, stats);
     return stats;
   } catch (error) {
-    console.error('[LeetCode API] Error fetching from LeetCode Alfa API:', error);
+    console.error('[LeetCode API] Error fetching from LeetCode GraphQL API:', error);
     return null;
   }
 }
