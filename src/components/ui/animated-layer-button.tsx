@@ -32,8 +32,8 @@ const AnimatedLayerButton = React.forwardRef<
           "absolute h-auto transition-all duration-300 ease-in-out group-hover:left-0 group-hover:w-full",
           // FIX: Used precise sizing and positioning to match the original
           "w-[60px] -left-[30px]",
-          // Used arbitrary tailwind class instead of modifying tailwind.config.cjs
-          "animate-[spin_5s_linear_infinite]",
+          // NOTE: This requires 'animation: { 'spin-slow': 'spin 5s linear infinite' }' in tailwind.config.js
+          "animate-spin-slow",
         )}
         viewBox="0 0 1095.66 1095.63"
         xmlns="http://www.w3.org/2000/svg"

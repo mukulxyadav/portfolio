@@ -48,7 +48,7 @@ module.exports = {
       animation: {
         'float': 'float 6s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite alternate',
-        'spin-slow': 'spin 20s linear infinite',
+        'spin-slow': 'spin 5s linear infinite',
         'pulse-slow': 'pulse 4s ease-in-out infinite',
         'gradient': 'gradient 8s ease infinite',
         'spotlight': 'spotlight 2s ease .75s 1 forwards',
