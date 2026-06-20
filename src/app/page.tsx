@@ -11,28 +11,28 @@ import Reveal       from "../components/Reveal";
 import { ScrollReelTestimonials } from "@/components/ui/scroll-reel-testimonials";
 import { TextReveal } from "@/components/ui/cascade-text";
 
-const TESTIMONIALS = [
+const HIGHLIGHTS = [
   {
-    quote: "Mukul's backend skills are impressive — clean architecture, solid fundamentals, and a real eye for optimization.",
-    author: "Project Collaborator",
+    quote: "Currently pursuing B.Tech in CSE at SRM Institute of Science and Technology with a strong academic record (9.16 CGPA).",
+    author: "Academics & Education",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80&auto=format&fit=crop",
-    alt: "Portrait of a project collaborator",
+      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400&q=80&auto=format&fit=crop",
+    alt: "University campus representing academics",
   },
   {
     quote:
-      "Working with Mukul on our hackathon project was amazing. He delivered a robust backend in record time.",
-    author: "Hackathon Teammate",
+      "Passionate about building robust systems. Developed token management and library systems using Core Java and MySQL.",
+    author: "Backend Development",
     image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80&auto=format&fit=crop",
-    alt: "Portrait of a hackathon teammate",
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80&auto=format&fit=crop",
+    alt: "Code on a screen representing development",
   },
   {
-    quote: "His problem-solving approach on LeetCode challenges is methodical and efficient. A great peer to learn from.",
-    author: "Coding Peer",
+    quote: "Dedicated to mastering data structures and algorithms, with consistent practice and over 76+ problems solved on LeetCode.",
+    author: "Problem Solving",
     image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80&auto=format&fit=crop",
-    alt: "Portrait of a coding peer",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80&auto=format&fit=crop",
+    alt: "Chess board representing problem solving strategy",
   },
 ];
 
@@ -55,17 +55,17 @@ export default function Home() {
       <div className="max-w-6xl mx-auto px-6"><hr /></div>
       <Reveal from="bottom" delay={0.05}><Achievements /></Reveal>
 
-      {/* ── TESTIMONIALS (ScrollReelTestimonials) ── */}
+      {/* ── HIGHLIGHTS (ScrollReelTestimonials) ── */}
       <div className="max-w-6xl mx-auto px-6"><hr /></div>
       <Reveal from="bottom" delay={0.05}>
-        <section id="testimonials" className="py-28 scroll-mt-20">
+        <section id="highlights" className="py-28 scroll-mt-20">
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-12">
-              <span className="section-eyebrow">Testimonials</span>
+              <span className="section-eyebrow">My Journey</span>
               <h2 className="display-2 text-white mt-2">
-                What People{" "}
+                Who I{" "}
                 <TextReveal
-                  text="Say"
+                  text="Am"
                   as="span"
                   fontSize="inherit"
                   color="#f1f1f1"
@@ -74,7 +74,7 @@ export default function Home() {
                 />
               </h2>
             </div>
-            <ScrollReelTestimonials testimonials={TESTIMONIALS} />
+            <ScrollReelTestimonials testimonials={HIGHLIGHTS} />
           </div>
         </section>
       </Reveal>
