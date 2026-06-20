@@ -104,21 +104,6 @@ export const resumeData: ResumeData = {
       stack: ['Java', 'MySQL', 'Backend'],
       color: '#6C63FF',
     },
-    {
-      name: 'SmartLibrary',
-      subtitle: 'Library Management System',
-      github: 'https://github.com/mukul/smartlibrary',
-      description:
-        'A comprehensive library management system featuring automated book tracking, user management, and fine calculation.',
-      bullets: [
-        'Developed a robust library management system using Java and MySQL to handle large volumes of book data.',
-        'Created an intuitive user interface for managing book check-outs, returns, and reservations.',
-        'Implemented an automated fine calculation engine and notification system for overdue books.',
-        'Optimized database queries to ensure fast search and retrieval of book records.',
-      ],
-      stack: ['Java', 'MySQL', 'JDBC'],
-      color: '#22D3EE',
-    },
   ],
 
   certifications: [
