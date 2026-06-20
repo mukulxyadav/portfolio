@@ -16,6 +16,18 @@
   --glow:      rgba(59,130,246,0.15);
   --demo-bg:   #ffffff;
   --demo-text:  #1a1a1a;
+
+  /* shadcn-compatible semantic tokens (HSL channels for opacity support) */
+  --background: 0 0% 2%;
+  --foreground: 0 0% 94.5%;
+  --card: 240 17% 5%;
+  --card-foreground: 0 0% 94.5%;
+  --muted-surface: 240 6% 10%;
+  --muted-foreground: 220 9% 46%;
+  --secondary-surface: 240 6% 8%;
+  --secondary-foreground: 0 0% 94.5%;
+  --border-hsl: 0 0% 15%;
+  --ring: 217 91% 60%;
 }
 
 /* =========================================
@@ -439,4 +451,42 @@ main { animation: pageFadeIn 0.8s ease-out both; }
 @media (max-width: 768px) {
   * { cursor: auto !important; }
   .cursor-ring, .cursor-dot { display: none; }
+}
+
+/* =========================================
+   SCROLL REEL TESTIMONIALS
+   ========================================= */
+@keyframes scroll-reel-char-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll-reel-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+.scroll-reel-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.35em);
+  animation: scroll-reel-char-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.scroll-reel-exit {
+  animation: scroll-reel-exit 0.24s ease-in forwards;
+}
+
+.scroll-reel-exit .scroll-reel-char {
+  animation: none;
+  opacity: 1;
+  transform: none;
 }

@@ -14,13 +14,29 @@ module.exports = {
       },
       colors: {
         primary: '#6C63FF',
-        secondary: '#00D4FF',
         accent: '#FF6584',
         dark: {
           100: '#1a1a2e',
           200: '#16213e',
           300: '#0f3460',
         },
+        /* shadcn-compatible semantic colors (HSL vars for opacity support) */
+        background: 'hsl(var(--background) / <alpha-value>)',
+        foreground: 'hsl(var(--foreground) / <alpha-value>)',
+        card: {
+          DEFAULT: 'hsl(var(--card) / <alpha-value>)',
+          foreground: 'hsl(var(--card-foreground) / <alpha-value>)',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted-surface) / <alpha-value>)',
+          foreground: 'hsl(var(--muted-foreground) / <alpha-value>)',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary-surface) / <alpha-value>)',
+          foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
+        },
+        border: 'hsl(var(--border-hsl) / <alpha-value>)',
+        ring: 'hsl(var(--ring) / <alpha-value>)',
       },
       glass: 'rgba(255,255,255,0.05)',
       animation: {
