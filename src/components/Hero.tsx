@@ -6,6 +6,7 @@ import { Spotlight } from "@/components/ui/spotlight";
 import { SplineScene } from "@/components/ui/splite";
 import { AnimatedLayerButton } from "@/components/ui/animated-layer-button";
 import { TextReveal } from "@/components/ui/cascade-text";
+import { GradientText } from "@/components/ui/gradient-text";
 import { resumeData } from "../data/resume";
 import { useLoading } from "./LoadingProvider";
 
@@ -62,15 +63,17 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-[1.1] color-shimmer-text"
+            className="text-5xl md:text-7xl font-extrabold mb-4 tracking-tight leading-[1.1]"
           >
-            <TextReveal 
-              as="span" 
-              text="Mukul Kumar" 
-              fontSize="inherit" 
-              hoverColor="#ffffff" 
-              style={{ padding: 0 }} 
-            />
+            <GradientText as="div" className="bg-transparent dark:bg-transparent">
+              <TextReveal 
+                as="span" 
+                text="Mukul Kumar" 
+                fontSize="inherit" 
+                hoverColor="#ffffff" 
+                style={{ padding: 0 }} 
+              />
+            </GradientText>
           </motion.h1>
 
           <motion.div

@@ -389,17 +389,34 @@ hr {
 }
 
 /* =========================================
-   ANIMATED COLOR TEXT (For TextReveal)
+   GRADIENT TEXT (For GradientText Component)
    ========================================= */
-@keyframes colorShimmer {
-  0% { color: #60a5fa; }
-  33% { color: #a78bfa; }
-  66% { color: #ec4899; }
-  100% { color: #60a5fa; }
+:root {
+  --color-1: 217 91% 60%;
+  --color-2: 250 89% 65%;
+  --color-3: 330 81% 60%;
+  --color-4: 199 89% 48%;
 }
 
-.color-shimmer-text {
-  animation: colorShimmer 4s linear infinite;
+@keyframes gradient-border {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+@keyframes gradient-1 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-10%, -10%); }
+}
+@keyframes gradient-2 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(10%, -10%); }
+}
+@keyframes gradient-3 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-10%, 10%); }
+}
+@keyframes gradient-4 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(10%, 10%); }
 }
 
 /* =========================================
