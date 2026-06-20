@@ -5,7 +5,7 @@ import { TypeAnimation } from "react-type-animation";
 import { Spotlight } from "@/components/ui/spotlight";
 import { SplineScene } from "@/components/ui/splite";
 import { AnimatedLayerButton } from "@/components/ui/animated-layer-button";
-import { RevealText } from "@/components/ui/reveal-text";
+import { TextReveal } from "@/components/ui/cascade-text";
 import { resumeData } from "../data/resume";
 import { useLoading } from "./LoadingProvider";
 
@@ -62,13 +62,14 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="mb-4 tracking-tight leading-[1.1]"
+            className="mb-4 tracking-tight leading-[1.1] text-5xl md:text-7xl font-extrabold color-shimmer-text"
           >
-            <RevealText 
+            <TextReveal 
+              as="span" 
               text="Mukul Kumar" 
-              fontSize="text-5xl md:text-7xl"
-              textColor="text-white"
-              overlayColor="text-blue-500"
+              fontSize="inherit" 
+              hoverColor="#ffffff" 
+              style={{ padding: 0 }} 
             />
           </motion.h1>
 
