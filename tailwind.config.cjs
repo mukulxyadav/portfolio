@@ -51,6 +51,7 @@ module.exports = {
         'spin-slow': 'spin 20s linear infinite',
         'pulse-slow': 'pulse 4s ease-in-out infinite',
         'gradient': 'gradient 8s ease infinite',
+        'spotlight': 'spotlight 2s ease .75s 1 forwards',
       },
       keyframes: {
         float: {
@@ -64,6 +65,10 @@ module.exports = {
         gradient: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
+        },
+        spotlight: {
+          "0%": { opacity: 0, transform: "translate(-72%, -62%) scale(0.5)" },
+          "100%": { opacity: 1, transform: "translate(-50%,-40%) scale(1)" },
         },
       },
       backdropBlur: {
