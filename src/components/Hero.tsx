@@ -62,7 +62,7 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="mb-4 tracking-tight leading-[1.1] text-5xl md:text-7xl font-extrabold color-shimmer-text"
+            className="mb-4 tracking-tight leading-[1.1] text-5xl md:text-7xl font-extrabold neon-color-cycle"
           >
             <TextReveal 
               as="span" 

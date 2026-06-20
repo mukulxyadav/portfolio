@@ -389,34 +389,19 @@ hr {
 }
 
 /* =========================================
-   GRADIENT TEXT (For GradientText Component)
+   NEON COLOR CYCLE (For TextReveal)
    ========================================= */
-:root {
-  --color-1: 217 91% 60%;
-  --color-2: 250 89% 65%;
-  --color-3: 330 81% 60%;
-  --color-4: 199 89% 48%;
+@keyframes neonColorShift {
+  0% { color: #00f2fe; }
+  33% { color: #8a2be2; }
+  66% { color: #ff0844; }
+  100% { color: #00f2fe; }
 }
 
-@keyframes gradient-border {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
-@keyframes gradient-1 {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-10%, -10%); }
-}
-@keyframes gradient-2 {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(10%, -10%); }
-}
-@keyframes gradient-3 {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-10%, 10%); }
-}
-@keyframes gradient-4 {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(10%, 10%); }
+.neon-color-cycle {
+  animation: neonColorShift 8s ease-in-out infinite;
+  /* Use drop-shadow to create a glowing aura that doesn't conflict with inline text-shadow */
+  filter: drop-shadow(0 0 15px currentColor);
 }
 
 /* =========================================
