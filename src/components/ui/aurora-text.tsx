@@ -13,12 +13,12 @@ export function AuroraText({ text, className }: AuroraTextProps) {
     <div className={cn("relative inline-block group cursor-pointer transition-transform duration-500 hover:scale-[1.02]", className)}>
       {/* Aura Glow */}
       <div 
-        className="absolute inset-[-10px] blur-[30px] opacity-40 group-hover:opacity-70 group-hover:blur-[40px] transition-all duration-700 bg-gradient-to-r from-[#3B82F6] via-[#8B5CF6] via-[#06B6D4] to-[#EC4899] bg-[length:300%_300%] animate-aurora group-hover:[animation-duration:20s] rounded-full pointer-events-none" 
+        className="absolute inset-[-10px] blur-[30px] opacity-40 group-hover:opacity-70 group-hover:blur-[40px] transition-all duration-700 bg-gradient-to-r from-[#ea580c] via-[#f59e0b] via-[#fbbf24] to-[#ea580c] bg-[length:300%_300%] animate-aurora group-hover:[animation-duration:20s] rounded-full pointer-events-none" 
         aria-hidden="true"
       />
       
       {/* Base Gradient Text */}
-      <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#3B82F6] via-[#8B5CF6] via-[#06B6D4] to-[#EC4899] bg-[length:300%_300%] animate-aurora group-hover:[animation-duration:20s]">
+      <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#ea580c] via-[#f59e0b] via-[#fbbf24] to-[#ea580c] bg-[length:300%_300%] animate-aurora group-hover:[animation-duration:20s]">
         {text}
       </span>
 
