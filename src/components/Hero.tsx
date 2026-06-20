@@ -65,7 +65,14 @@ export default function Hero() {
             className="flex flex-wrap items-center gap-x-2 text-5xl md:text-7xl font-extrabold text-white mb-4 tracking-tight leading-[1.1]"
           >
             <TextReveal as="span" text="Mukul" fontSize="inherit" color="#ffffff" hoverColor="#e2e8f0" style={{ padding: 0 }} />
-            <TextReveal as="span" text="Kumar" fontSize="inherit" color="#8b5cf6" hoverColor="#60a5fa" style={{ padding: 0 }} />
+            <TextReveal 
+              as="span" 
+              text="Kumar" 
+              fontSize="inherit" 
+              className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500" 
+              hoverColor="transparent" 
+              style={{ padding: 0 }} 
+            />
           </motion.h1>
 
           <motion.div
