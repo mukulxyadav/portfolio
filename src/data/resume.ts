@@ -75,7 +75,7 @@ export const resumeData: ResumeData = {
       institution: 'SRM Institute of Science and Technology',
       degree: 'B.Tech in Computer Science and Engineering',
       period: 'Aug 2024 - Present',
-      cgpa: '9.16 / 10.0',
+      cgpa: '9.21 / 10.0',
       courses: ['Data Structures', 'Object Oriented Programming', 'Database Management Systems'],
     },
   ],
@@ -187,7 +187,7 @@ export const chatbotKnowledge = [
   {
     triggers: ['education', 'college', 'srm', 'university', 'cgpa'],
     response:
-      'Mukul is a second-year B.Tech CSE student at SRM Institute of Science and Technology (since August 2024) with a CGPA of 9.16/10.',
+      'Mukul is a second-year B.Tech CSE student at SRM Institute of Science and Technology (since August 2024) with a CGPA of 9.21/10.',
   },
   {
     triggers: ['leetcode', 'coding', 'competitive', 'problems'],
@@ -211,6 +211,6 @@ export const chatbotKnowledge = [
   {
     triggers: ['who', 'about', 'introduce', 'mukul'],
     response:
-      'Mukul Kumar is a second-year CSE student at SRM with a strong backend focus, a 9.16 CGPA, and practical project experience in Java and MySQL.',
+      'Mukul Kumar is a second-year CSE student at SRM with a strong backend focus, a 9.21 CGPA, and practical project experience in Java and MySQL.',
   },
 ];

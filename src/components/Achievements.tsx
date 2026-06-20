@@ -149,7 +149,7 @@ export default function Achievements() {
               {[
                 { value: "4",   label: "NPTEL Certs" },
                 { value: "81h", label: "GFG DSA Course" },
-                { value: "9.16", label: "CGPA" },
+                { value: "9.21", label: "CGPA" },
                 { value: "2+",  label: "Projects Built" },
               ].map(s => (
                 <div key={s.label} className="text-center">

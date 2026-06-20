@@ -65,7 +65,7 @@ export default function About() {
               <span className="text-blue-400"> B.Tech Computer Science </span> student at{" "}
               <span className="text-white font-semibold">SRM Institute of Science and Technology</span>, 
               maintaining a strong academic record with a{" "}
-              <span className="text-white font-semibold">9.16 CGPA</span>.
+              <span className="text-white font-semibold">9.21 CGPA</span>.
             </p>
             <p className="body-lg leading-[1.85]">
               I have strong foundations in <span className="text-white">C, C++, Java, and Python</span>, 
