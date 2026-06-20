@@ -68,9 +68,10 @@ const TextReveal = React.memo(function TextReveal({
     if (target) rootProps.target = target;
     if (target === "_blank") rootProps.rel = "noopener noreferrer";
   }
+  const Comp = Component as React.FC<any>;
 
   return (
-    <Component {...rootProps}>
+    <Comp {...rootProps}>
       <span
         className="inline-flex overflow-hidden relative"
         style={{ height: "1em" }}
@@ -93,7 +94,7 @@ const TextReveal = React.memo(function TextReveal({
           </span>
         ))}
       </span>
-    </Component>
+    </Comp>
   );
 });
 
