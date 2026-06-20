@@ -122,57 +122,10 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* RIGHT: 3D Avatar & Floating Cards */}
+        {/* RIGHT: 3D Avatar */}
         <div className="flex-1 relative w-full h-[50vh] lg:h-full flex items-center justify-center">
-          
-          {/* Floating Glass Cards */}
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="absolute top-[20%] right-[10%] lg:right-[20%] z-30 glass-card px-4 py-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl flex items-center gap-3 animate-float-slow"
-          >
-            <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
-               🎓
-            </div>
-            <div>
-              <p className="text-white font-bold text-sm">CGPA: 9.16</p>
-              <p className="text-neutral-400 text-xs">SRM Institute</p>
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="absolute bottom-[25%] left-[5%] lg:left-[10%] z-30 glass-card px-4 py-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl flex items-center gap-3 animate-float-delayed"
-          >
-            <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400">
-              💻
-            </div>
-            <div>
-              <p className="text-white font-bold text-sm">Backend Dev</p>
-              <p className="text-neutral-400 text-xs">Java, MySQL</p>
-            </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="absolute bottom-[10%] right-[15%] z-30 glass-card px-4 py-3 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl flex items-center gap-3 animate-float"
-          >
-            <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
-              🧠
-            </div>
-            <div>
-              <p className="text-white font-bold text-sm">76+ Solved</p>
-              <p className="text-neutral-400 text-xs">LeetCode DSA</p>
-            </div>
-          </motion.div>
-
           {/* Spline 3D Scene */}
-          <div className="absolute inset-0 scale-[0.8] lg:scale-100 transition-transform duration-1000 ease-out origin-center">
+          <div className="absolute inset-0 scale-90 lg:scale-[1.15] transition-transform duration-1000 ease-out origin-center cursor-move">
              <SplineScene 
                 scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
                 className="w-full h-full object-contain"
