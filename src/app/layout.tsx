@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar              from "../components/Navbar";
-import Scene3DBackground   from "../components/Scene3DBackground";
+import GradientBackground  from "../components/GradientBackground";
 import CustomCursor        from "../components/CustomCursor";
 import SmoothScrollWrapper from "../components/SmoothScrollWrapper";
 import { LoadingProvider } from "../components/LoadingProvider";
@@ -46,8 +46,8 @@ export default function RootLayout({
         <LoadingProvider>
           <LoadingScreen />
           
-          {/* 3D Three.js animated background — behind everything */}
-          <Scene3DBackground />
+          {/* Grain Gradient animated background — behind everything */}
+          <GradientBackground />
 
           {/* Custom dual-layer cursor */}
           <CustomCursor />

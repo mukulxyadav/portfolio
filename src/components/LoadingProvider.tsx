@@ -18,13 +18,36 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
   const [progress, setProgress] = useState(0);
   const [splineLoaded, setSplineLoaded] = useState(false);
 
+  // Fake progress simulation
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (loading && !splineLoaded) {
+      interval = setInterval(() => {
+        setProgress((prev) => {
+          // Slow down as it gets closer to 90%
+          const step = prev < 50 ? 5 : prev < 80 ? 2 : 0.5;
+          return prev >= 90 ? 90 : prev + step;
+        });
+      }, 100);
+    }
+    return () => clearInterval(interval);
+  }, [loading, splineLoaded]);
+
+  // Complete loading when Spline is loaded
+  useEffect(() => {
+    if (splineLoaded) {
+      setProgress(100);
+      setTimeout(() => setLoading(false), 500);
+    }
+  }, [splineLoaded]);
+
   // Fallback: If loading takes longer than 8 seconds, force finish to avoid trapping users
   useEffect(() => {
     let timeout: NodeJS.Timeout;
     if (loading) {
       timeout = setTimeout(() => {
-        setLoading(false);
         setProgress(100);
+        setTimeout(() => setLoading(false), 500);
       }, 8000);
     }
     return () => clearTimeout(timeout);
