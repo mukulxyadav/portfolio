@@ -389,19 +389,26 @@ hr {
 }
 
 /* =========================================
-   NEON COLOR CYCLE (For TextReveal)
+   PREMIUM LIQUID AURORA TEXT
    ========================================= */
-@keyframes neonColorShift {
-  0% { color: #00f2fe; }
-  33% { color: #8a2be2; }
-  66% { color: #ff0844; }
-  100% { color: #00f2fe; }
+@keyframes aurora {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.neon-color-cycle {
-  animation: neonColorShift 8s ease-in-out infinite;
-  /* Use drop-shadow to create a glowing aura that doesn't conflict with inline text-shadow */
-  filter: drop-shadow(0 0 15px currentColor);
+@keyframes text-shimmer {
+  0% { background-position: -200% center; }
+  20% { background-position: 200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-aurora {
+  animation: aurora 12s ease infinite;
+}
+
+.animate-text-shimmer {
+  animation: text-shimmer 8s infinite;
 }
 
 /* =========================================
