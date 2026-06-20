@@ -13,8 +13,14 @@ module.exports = {
         mono: ['Fira Code', 'monospace'],
       },
       colors: {
-        primary: '#6C63FF',
-        accent: '#FF6584',
+        primary: {
+          DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+          foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent-color) / <alpha-value>)',
+          foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
+        },
         dark: {
           100: '#1a1a2e',
           200: '#16213e',

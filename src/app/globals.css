@@ -28,6 +28,10 @@
   --secondary-foreground: 0 0% 94.5%;
   --border-hsl: 0 0% 15%;
   --ring: 217 91% 60%;
+  --primary: 244 100% 69%;
+  --primary-foreground: 0 0% 100%;
+  --accent-color: 353 100% 70%;
+  --accent-foreground: 0 0% 100%;
 }
 
 /* =========================================
