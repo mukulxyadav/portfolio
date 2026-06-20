@@ -104,16 +104,16 @@ export default function Hero() {
             animate="show"
             className="flex flex-col sm:flex-row flex-wrap gap-4 items-center"
           >
-            <a href="#projects" className="group relative flex min-h-[50px] w-fit px-8 items-center justify-center rounded-full bg-white text-black font-semibold overflow-hidden shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-transform hover:scale-105 active:scale-95">
+            <a 
+              href="#projects" 
+              onClick={(e) => { e.preventDefault(); document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }); }}
+              className="group relative flex min-h-[50px] w-fit px-8 items-center justify-center rounded-full bg-white text-black font-semibold overflow-hidden shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-transform hover:scale-105 active:scale-95"
+            >
               <span className="relative z-10 flex items-center gap-2">
                 View Projects
                 <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </span>
               <div className="absolute inset-0 bg-neutral-200 transform scale-x-0 origin-left transition-transform group-hover:scale-x-100 z-0" />
-            </a>
-            
-            <a href="#contact" className="flex min-h-[50px] w-fit px-8 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white font-semibold backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/40 active:scale-95">
-              Download Resume
             </a>
 
             <AnimatedLayerButton onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
