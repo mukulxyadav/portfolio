@@ -19,23 +19,34 @@ export default function Navbar() {
     const sections = ["about", "skills", "projects", "achievements", "contact"];
     
     const handleScroll = () => {
-      let currentSection = "About";
-      const scrollPosition = window.scrollY + 200; // Offset for better detection
+      let currentSection = navItems[0].name;
 
-      for (const sectionId of sections) {
+      const reversedSections = [...sections].reverse();
+      for (const sectionId of reversedSections) {
         const el = document.getElementById(sectionId);
         if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= window.innerHeight / 2) {
             const matchedItem = navItems.find((item) => item.url === `#${sectionId}`);
             if (matchedItem) {
               currentSection = matchedItem.name;
+              break;
             }
           }
         }
       }
-      setActiveTab(currentSection);
+
+      // If at the very top, keep first item active
+      if (window.scrollY < 100) {
+        currentSection = navItems[0].name;
+      }
+
+      // If at the very bottom, keep last item active
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50) {
+        currentSection = navItems[navItems.length - 1].name;
+      }
+
+      setActiveTab((prev) => (prev !== currentSection ? currentSection : prev));
     };
 
     window.addEventListener("scroll", handleScroll);
