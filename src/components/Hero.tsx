@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { Spotlight } from "@/components/ui/spotlight";
 import { SplineScene } from "@/components/ui/splite";
+import { AnimatedLayerButton } from "@/components/ui/animated-layer-button";
 import { resumeData } from "../data/resume";
 
 const fadeUp = {
@@ -113,9 +114,9 @@ export default function Hero() {
               Download Resume
             </a>
 
-            <a href="#contact" className="px-6 py-3 rounded-lg text-neutral-300 font-semibold transition-colors hover:text-white relative after:absolute after:bottom-2 after:left-6 after:right-6 after:h-[1px] after:bg-white after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform">
+            <AnimatedLayerButton onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
               Contact Me
-            </a>
+            </AnimatedLayerButton>
           </motion.div>
         </motion.div>
 
