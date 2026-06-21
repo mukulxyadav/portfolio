@@ -40,7 +40,7 @@ export default function Skills() {
         </motion.div>
 
         {/* Category grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-6 lg:gap-8">
           {categories.map(([category, items], catIdx) => {
             const config = categoryConfig[category] || { color: "#6b7280", badgeClass: "badge", icon: "●" };
             return (
@@ -90,7 +90,7 @@ export default function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: categories.length * 0.08 }}
-            className="card p-6 sm:col-span-2 lg:col-span-1 relative overflow-hidden"
+            className="card p-6 relative overflow-hidden"
           >
             {/* Shimmer loading */}
             {loading && (

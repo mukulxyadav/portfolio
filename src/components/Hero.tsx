@@ -106,7 +106,7 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="mb-4 tracking-tight leading-[1.1] text-5xl md:text-7xl font-extrabold"
+            className="mb-4 tracking-tight display-1"
           >
             <AuroraText text="Mukul Kumar" />
           </motion.h1>
@@ -119,7 +119,7 @@ export default function Hero() {
             className="flex items-center gap-3 mb-6 h-8"
           >
             <div className="w-8 h-[2px] bg-blue-500" />
-            <span className="text-xl md:text-2xl text-neutral-300 font-medium">
+            <span className="heading-1 text-neutral-300 font-medium">
               <TypeAnimation
                 sequence={[
                   "Backend Developer", 2000,
@@ -137,7 +137,7 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="text-base md:text-lg text-neutral-400 max-w-xl mb-10 leading-relaxed"
+            className="body-lg max-w-xl mb-10"
           >
             Second-year Computer Science student at SRM Institute of Science and Technology with strong foundations in Java, C++, Python, DSA, and backend development. Passionate about building scalable applications and solving real-world problems.
           </motion.p>
@@ -147,7 +147,7 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="show"
-            className="flex flex-col sm:flex-row flex-wrap gap-4 items-center"
+            className="flex flex-col sm:flex-row flex-wrap gap-4 items-center w-full sm:w-auto"
           >
             <a 
               href="#projects" 
@@ -168,9 +168,9 @@ export default function Hero() {
         </motion.div>
 
         {/* RIGHT: 3D Avatar */}
-        <div className="flex-1 relative w-full h-[50vh] lg:h-full flex items-center justify-center">
+        <div className="flex-1 relative w-full h-[40vh] md:h-[50vh] lg:h-full flex items-center justify-center">
           {/* Spline 3D Scene */}
-          <div className="absolute inset-0 scale-90 lg:scale-[1.15] transition-transform duration-1000 ease-out origin-center cursor-move">
+          <div className="absolute inset-0 scale-[0.8] md:scale-90 lg:scale-[1.15] transition-transform duration-1000 ease-out origin-center cursor-move">
              <SplineScene 
                 scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
                 className="w-full h-full object-contain"

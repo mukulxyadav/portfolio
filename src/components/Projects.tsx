@@ -62,7 +62,7 @@ function ProjectModal({ project, onClose }: ModalProps) {
         exit={{ opacity: 0, scale: 0.92, y: 24 }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         onClick={e => e.stopPropagation()}
-        className="card max-w-xl w-full p-8 relative overflow-hidden"
+        className="card max-w-xl w-full p-5 md:p-8 relative overflow-hidden max-h-[90vh] overflow-y-auto"
       >
         {/* Accent glow */}
         <div
@@ -72,8 +72,8 @@ function ProjectModal({ project, onClose }: ModalProps) {
         />
 
         {/* Header */}
-        <div className="flex items-start justify-between mb-6 relative z-10">
-          <div>
+        <div className="flex items-start justify-between mb-6 relative z-10 gap-4">
+          <div className="flex-1">
             <h3 className="heading-1 text-white mb-1">{project.name}</h3>
             <p className="text-sm text-neutral-400">{project.subtitle}</p>
           </div>
@@ -152,7 +152,7 @@ export default function Projects() {
           </motion.div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6 lg:gap-8">
             {projects.map((project, i) => (
               <motion.div
                 key={project.name}

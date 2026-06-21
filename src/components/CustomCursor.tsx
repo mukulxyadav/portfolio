@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
@@ -18,8 +18,17 @@ export default function CustomCursor() {
   const isHovering = useRef(false);
   const ringRef = useRef<HTMLDivElement>(null);
   const dotRef  = useRef<HTMLDivElement>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    const checkTouch = () => {
+      setIsTouchDevice(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
+    };
+    checkTouch();
+    window.addEventListener("resize", checkTouch);
+
+    if (isTouchDevice) return;
+
     const onMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -46,13 +55,17 @@ export default function CustomCursor() {
     });
 
     return () => {
+      window.removeEventListener("resize", checkTouch);
+      if (isTouchDevice) return;
       window.removeEventListener("mousemove", onMove);
       interactives.forEach(el => {
         el.removeEventListener("mouseenter", onEnter);
         el.removeEventListener("mouseleave", onLeave);
       });
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isTouchDevice]);
+
+  if (isTouchDevice) return null;
 
   return (
     <>
